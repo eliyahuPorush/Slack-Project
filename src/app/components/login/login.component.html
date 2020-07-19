@@ -1,5 +1,14 @@
 <div class="container">
     <div class="row">
-        <form (ngSubmit)="onSubmit()" [formGroup]="loginForm"></form>
+        <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" formControlName="email" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="email">Password</label>
+                <input type="text" formControlName="password" class="form-control">
+            </div>
+        </form>
     </div>
 </div>
