@@ -3,9 +3,11 @@
 
 }
 app-users-list{
-    width: 200vh ;
+    width: 20% ;
 }
 app-chat{
-    width: 800vh ;
+    width: 80% ;
+    border: 3px solid red ;
+    
     
 }

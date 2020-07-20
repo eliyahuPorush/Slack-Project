@@ -1,5 +1,9 @@
-.container{
-    border: 2px solid burlywood ;
-    height: 90vh;
-    
+.chat{
+    display: flex ;
+    flex-direction: column ;
 }
+/* app-chat-input{
+    position: absolute;
+    bottom: 2%;
+    width: 100vh;
+} */
