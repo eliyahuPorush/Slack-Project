@@ -1,10 +1,11 @@
 export class User {
 
-    constructor(private idToken:string, 
-        private email: string, 
-        private displayName:string, 
-        private localId: string, 
-        private refreshToken: string, 
-        private expiresIn: string , 
-        private registered?: boolean ){}
+    constructor(
+        public idToken:string, 
+        public email: string, 
+        public displayName:string, 
+        public localId: string, 
+        public refreshToken: string, 
+        public expiresIn: string , 
+        public registered?: boolean ){}
 }

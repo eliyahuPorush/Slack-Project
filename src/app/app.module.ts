@@ -8,13 +8,23 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoginHeaderComponent } from './components/login/login-header/login-header.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { UsersListComponent } from './components/dashboard/users-list/users-list.component';
+import { ChatComponent } from './components/dashboard/chat/chat.component';
+import { SelfDetailsComponent } from './components/self-details/self-details.component';
+import { ChatInputComponent } from './components/dashboard/chat/chat-input/chat-input.component';
+import { ChatMessagesComponent } from './components/dashboard/chat/chat-messages/chat-messages.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     LoginHeaderComponent,
-    DashboardComponent
+    DashboardComponent,
+    UsersListComponent,
+    ChatComponent,
+    SelfDetailsComponent,
+    ChatInputComponent,
+    ChatMessagesComponent
   ],
   imports: [
     BrowserModule,

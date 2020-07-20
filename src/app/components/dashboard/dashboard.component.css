@@ -1,0 +1,11 @@
+.dash{
+    display: flex ;
+
+}
+app-users-list{
+    width: 200vh ;
+}
+app-chat{
+    width: 800vh ;
+    
+}

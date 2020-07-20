@@ -33,7 +33,9 @@ export class AuthService {
       password: password,
       returnSecureToken: true
     }).subscribe((res: responced) => {
-      console.log(res);
+      this.isLogedIn = true ;
+        this.user = new User(res.idToken, res.email, "" ,res.localId, res.refreshToken, res.expiresIn)
+        this.router.navigate(['details']) ;
       
     })
   }
@@ -48,6 +50,8 @@ export class AuthService {
         this.isLogedIn = true ;
         this.user = new User(res.idToken, res.email, "" ,res.localId, res.refreshToken, res.expiresIn, res.registered)
         this.router.navigate(['dashboard']) ;
+        console.log(res);
+        
       } 
     }, error => {
       let errorMassege = error.error.error.message ;
@@ -63,5 +67,8 @@ export class AuthService {
       default: return 'Unkonwn Error'
     }
 
+  }
+  getUser(){
+    return this.user ;
   }
 }
