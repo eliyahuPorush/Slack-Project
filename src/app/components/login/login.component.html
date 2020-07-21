@@ -4,17 +4,18 @@
             <div class="row card-header bg-dark text-white">
                 Welcome To Slack
             </div>
+            <br>
               <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
-            <div class="row form-group card-title">
+            <div class="label row form-group card-title">
                 <label for="email">Email</label>
                 <input type="text" formControlName="email" class="form-control">
             </div>
-            <div class="row form-group card-title">
+            <div class="label row form-group card-title">
                 <label for="email">Password</label>
                 <input type="text" formControlName="password" class="form-control">
             </div>
             <div class="row">
-              <button [disabled]="loginForm.invalid" class="btn btn-info btn-lg card-title" type="submit">{{logInText}}</button>
+              <button [disabled]="loginForm.invalid" class="btn btn-info btn-lg card-title log" type="submit">{{logInText}}</button>
               <p class="alert small">Switch To <button type="button" (click)="onSignInClicked()">{{logInText == 'Sign Up'? 'Log In': 'Sign Up' }}</button></p>
             </div>
             <div *ngIf="errorMessage" class="row alert alert-danger">{{errorMessage}}</div>
