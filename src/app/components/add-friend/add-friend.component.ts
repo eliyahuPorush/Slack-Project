@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-friend',
@@ -6,12 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-friend.component.css']
 })
 export class AddFriendComponent implements OnInit {
-
+  addFriendForm: FormGroup ;
   constructor() { }
 
   ngOnInit(): void {
-    console.log("add friend component");
+  this.addFriendForm = new FormGroup({
+    name: new FormControl(null, [Validators.required, Validators.minLength(2)]),
+    email: new FormControl(null, [Validators.required,Validators.email])
+  })    
+  }
+  onSubmit(){
+ 
+  if(this.addFriendForm.valid){
     
   }
-
+    
+  }
 }
