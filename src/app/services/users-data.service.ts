@@ -7,7 +7,7 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class UsersDataService {
-
+  user:User ;
   constructor(
     private http: HttpClient,
     private authSRV: AuthService
@@ -18,15 +18,16 @@ export class UsersDataService {
   }
   updateProfile(name: string, imgURL: string){
     let url = 'https://identitytoolkit.googleapis.com/v1/accounts:update?key=' + 'AIzaSyCFHhL5pC5_ZeVTaq8bQgfCSNcUOjPvNaE' ;
-    let user: User =  this.authSRV.getUser() ;
+      this.user =  this.authSRV.getUser() ;
+    
     this.http.post(url, {
-      idToken: user.idToken,
+      idToken: this.user.idToken,
       displayName: name,
       photoUrl: imgURL,
       returnSecureToken: true
 
     }).subscribe( updateData => {
-      console.log(updateData);
+      console.log(updateData + " -- updated !!!");
       
     })
   }

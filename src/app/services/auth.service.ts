@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 
 interface responced{
@@ -20,7 +20,7 @@ interface responced{
   providedIn: 'root'
 })
 export class AuthService {
-  user: User ;
+  user:User ;
   isLogedIn = false ;
   errorFound = new Subject<string>() ;
   constructor(private http: HttpClient, private router: Router) { }
@@ -34,8 +34,8 @@ export class AuthService {
       returnSecureToken: true
     }).subscribe((res: responced) => {
       this.isLogedIn = true ;
-        this.user = new User(res.idToken, res.email, "" ,res.localId, res.refreshToken, res.expiresIn)
-        this.router.navigate(['details']) ;
+        this.user = new User(res.idToken, res.email, "" ,res.localId, res.refreshToken, res.expiresIn) ;
+        this.router.navigate([res.email, 'details']) ;
       
     })
   }
@@ -47,10 +47,11 @@ export class AuthService {
       returnSecureToken: true
     }).subscribe((res: responced) => {
       if(res.registered){
+        console.log("res " + res);
+        
         this.isLogedIn = true ;
-        this.user = new User(res.idToken, res.email, "" ,res.localId, res.refreshToken, res.expiresIn, res.registered)
-        this.router.navigate(['dashboard']) ;
-        console.log(res);
+        this.user = new User(res.idToken, res.email, "" ,res.localId, res.refreshToken, res.expiresIn, res.registered) ;
+        this.router.navigate([res.email , 'dashboard']) ;
         
       } 
     }, error => {

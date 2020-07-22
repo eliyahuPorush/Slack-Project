@@ -14,6 +14,7 @@ import { SelfDetailsComponent } from './components/self-details/self-details.com
 import { ChatInputComponent } from './components/dashboard/chat/chat-input/chat-input.component';
 import { ChatMessagesComponent } from './components/dashboard/chat/chat-messages/chat-messages.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { AddFriendComponent } from './components/add-friend/add-friend.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     SelfDetailsComponent,
     ChatInputComponent,
     ChatMessagesComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    AddFriendComponent
   ],
   imports: [
     BrowserModule,
