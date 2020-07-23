@@ -14,30 +14,32 @@ export class FriendsDataService {
   private friendsList: Friend[] ;
   baseURL = "https://slack-b0c55.firebaseio.com/" ;
   user:User = this.authSRV.getUser() ;
+  userEmailDotsOut = this.user.email.replace('.','') ;
   constructor(
     private http: HttpClient,
     private authSRV: AuthService
   ) { 
-    // this.getFriendsFromServer().subscribe(
-      // (friends: Friend[]) => {
-      //   this.friendsList = friends ;
-      // }
-    // )
+
   }
   get friends(){ return this.friendsList} ;
 
   getFriendsFromServer(){
-    let userEmailDotsOut = this.user.email.replace('.','') ;
-    return this.http.get<Friend[]>(this.baseURL + userEmailDotsOut + '-friends.json').pipe(map( friends => {
-      let indideFriends = friends[Object.keys(friends)[0]] ;
-      return indideFriends[Object.keys(indideFriends)[0]] ;
+    return this.http.get<Friend[]>(this.baseURL + this.userEmailDotsOut + '-friends.json').pipe(map( friends => {
+      // let indideFriends = friends[Object.keys(friends)[0]] ;
+      // return indideFriends[Object.keys(indideFriends)[0]] ;
+      return friends ;
     }));
 }
   
   
   sendFriends(FriendsList: Friend[]){
-      let userEmailDotsOut = this.user.email.replace('.','') ;
-      this.http.post(this.baseURL + userEmailDotsOut + "-friends.json", {FriendsList}).subscribe( data => console.log(data)
+      this.http.put(this.baseURL + this.userEmailDotsOut + "-friends.json", {FriendsList}).subscribe( data => console.log(data)
       );
+  }
+  addFriend(friend: Friend){
+    this.http.patch(this.baseURL + this.userEmailDotsOut + '-friends.json', {friend}).subscribe( // need to be change
+      () => console.log("friend added")
+      
+    )
   }
 }

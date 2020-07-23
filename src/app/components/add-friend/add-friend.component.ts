@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FriendsDataService } from 'src/app/services/friends-data.service';
+import { Friend } from 'src/app/models/friend.model';
 
 @Component({
   selector: 'app-add-friend',
@@ -8,7 +10,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class AddFriendComponent implements OnInit {
   addFriendForm: FormGroup ;
-  constructor() { }
+  constructor( private friendDataSRV: FriendsDataService) { }
 
   ngOnInit(): void {
   this.addFriendForm = new FormGroup({
@@ -19,7 +21,8 @@ export class AddFriendComponent implements OnInit {
   onSubmit(){
  
   if(this.addFriendForm.valid){
-    
+    let newFriend = new Friend(this.addFriendForm.controls.name.value, this.addFriendForm.controls.email.value) ;
+    this.friendDataSRV.addFriend(newFriend) ;
   }
     
   }

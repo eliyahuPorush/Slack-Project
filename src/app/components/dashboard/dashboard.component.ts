@@ -38,7 +38,7 @@ export class DashboardComponent implements OnInit {
          new Message(1, new Date, "How are you shimon?")
        ])
      ]
-    //  this.friendData.sendFriends(this.friends)
+     this.friendData.sendFriends(this.friends)
     
  
    

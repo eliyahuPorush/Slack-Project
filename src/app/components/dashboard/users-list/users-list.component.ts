@@ -17,8 +17,8 @@ export class UsersListComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.friendsData.getFriendsFromServer().subscribe( friends => {
-      this.friends = friends ;
+      this.friendsData.getFriendsFromServer().subscribe( friends => {
+      this.friends = friends[Object.keys(friends)[0]] ;
     }) ;
     
   }
