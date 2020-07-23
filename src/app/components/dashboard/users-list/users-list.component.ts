@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UsersDataService } from 'src/app/services/users-data.service';
 import { Friend } from 'src/app/models/friend.model';
 import { FriendsDataService } from 'src/app/services/friends-data.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-users-list',
@@ -10,14 +11,15 @@ import { FriendsDataService } from 'src/app/services/friends-data.service';
   styleUrls: ['./users-list.component.css']
 })
 export class UsersListComponent implements OnInit {
-  users = ['eli','yakov'] ;
- friends: Friend[] ;
+ friends:Friend[] ;
 
   constructor(private router: Router, private activeRoute: ActivatedRoute, private usersData: UsersDataService, private friendsData: FriendsDataService) { }
 
   ngOnInit(): void {
-    this.friends = this.friendsData.friends ;
     
+    this.friendsData.getFriendsFromServer().subscribe( friends => {
+      this.friends = friends ;
+    }) ;
     
   }
   addFriend(){

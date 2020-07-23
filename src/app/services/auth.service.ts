@@ -20,6 +20,7 @@ interface responced{
   providedIn: 'root'
 })
 export class AuthService {
+
   user:User ;
   isLogedIn = false ;
   errorFound = new Subject<string>() ;
@@ -47,7 +48,6 @@ export class AuthService {
       returnSecureToken: true
     }).subscribe((res: responced) => {
       if(res.registered){
-        console.log("res " + res);
         
         this.isLogedIn = true ;
         this.user = new User(res.idToken, res.email, "" ,res.localId, res.refreshToken, res.expiresIn, res.registered) ;

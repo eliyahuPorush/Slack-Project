@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { tap, map } from 'rxjs/operators' ;
+
+
 import { User } from '../models/user';
 import { AuthService } from './auth.service';
 import { Friend } from '../models/friend.model';
@@ -15,20 +18,26 @@ export class FriendsDataService {
     private http: HttpClient,
     private authSRV: AuthService
   ) { 
-    this.getFriendsFromServer().subscribe(
-      (friends: Friend[]) => {
-        this.friendsList = friends ;
-      }
-    )
+    // this.getFriendsFromServer().subscribe(
+      // (friends: Friend[]) => {
+      //   this.friendsList = friends ;
+      // }
+    // )
   }
-  get friends(){ return this.friendsList.slice()} ;
+  get friends(){ return this.friendsList} ;
 
-  private getFriendsFromServer(){
-    return this.http.get<Friend[]>(this.baseURL + this.user.email ) ;
-  }
-  sendFriends(usersList: User[]){
-    this.http.post(this.baseURL+ this.user.email + ".json", {usersList}).subscribe(
-      () => console.log("posted users")
-    ) ;
+  getFriendsFromServer(){
+    let userEmailDotsOut = this.user.email.replace('.','') ;
+    return this.http.get<Friend[]>(this.baseURL + userEmailDotsOut + '-friends.json').pipe(map( friends => {
+      let indideFriends = friends[Object.keys(friends)[0]] ;
+      return indideFriends[Object.keys(indideFriends)[0]] ;
+    }));
+}
+  
+  
+  sendFriends(FriendsList: Friend[]){
+      let userEmailDotsOut = this.user.email.replace('.','') ;
+      this.http.post(this.baseURL + userEmailDotsOut + "-friends.json", {FriendsList}).subscribe( data => console.log(data)
+      );
   }
 }
