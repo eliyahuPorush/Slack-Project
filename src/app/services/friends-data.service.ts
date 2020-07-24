@@ -6,6 +6,7 @@ import { tap, map } from 'rxjs/operators' ;
 import { User } from '../models/user';
 import { AuthService } from './auth.service';
 import { Friend } from '../models/friend.model';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -37,9 +38,9 @@ export class FriendsDataService {
       );
   }
   addFriend(friend: Friend){
-    this.http.patch(this.baseURL + this.userEmailDotsOut + '-friends.json', {friend}).subscribe( // need to be change
+    this.http.put(this.baseURL + this.userEmailDotsOut + '-friends.json', {friend}).subscribe( // need to be change
       () => console.log("friend added")
-      
-    )
+    ) ;
+
   }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+ import { AngularFirestore } from '@angular/fire/firestore' ;
+import { firestore } from 'firebase';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +17,7 @@ export class LoginComponent implements OnInit {
   constructor(private authSRV: AuthService) { }
 
   ngOnInit(): void {
+    
     this.loginForm = new FormGroup({
       email: new FormControl('eliyahuporush@gmail.com', [Validators.required, Validators.email]),
       password: new FormControl('eliyahu6040', [Validators.required, Validators.minLength(6)])
@@ -22,6 +25,7 @@ export class LoginComponent implements OnInit {
     this.authSRV.errorFound.subscribe(error => 
       this.errorMessage = error
       )
+
   }
 
   onSubmit(){
