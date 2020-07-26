@@ -21,17 +21,9 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from 'src/environments/environment';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCFHhL5pC5_ZeVTaq8bQgfCSNcUOjPvNaE",
-  authDomain: "slack-b0c55.firebaseapp.com",
-  databaseURL: "https://slack-b0c55.firebaseio.com",
-  projectId: "slack-b0c55",
-  storageBucket: "slack-b0c55.appspot.com",
-  messagingSenderId: "21660727028",
-  appId: "1:21660727028:web:f607dce2994cf2581510a1",
-  measurementId: "G-L57GWEJPVL"
-};
+
 
 @NgModule({
   declarations: [
@@ -52,7 +44,7 @@ const firebaseConfig = {
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule, // firestore
     AngularFireAuthModule, // auth
     AngularFireStorageModule // storage

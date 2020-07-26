@@ -1,14 +1,19 @@
-import { Component } from '@angular/core';
-import { Friend } from './models/friend.model';
-import { Message } from './models/message.model';
-import { FriendsDataService } from './services/friends-data.service';
+import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+
+  constructor(private DB: AngularFirestore){}
   title = 'Slack-Project';
+  obs: Observable<any> ;
+  ngOnInit(): void {  
+    
+  }
 
 }
