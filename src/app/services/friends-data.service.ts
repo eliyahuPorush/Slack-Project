@@ -18,18 +18,20 @@ export class FriendsDataService {
   userEmailDotsOut = this.user.email.replace('.','') ;
   constructor(
     private http: HttpClient,
-    private authSRV: AuthService
+    private authSRV: AuthService,
+   private db: AngularFirestore
   ) { 
 
   }
   get friends(){ return this.friendsList} ;
 
   getFriendsFromServer(){
-    return this.http.get<Friend[]>(this.baseURL + this.userEmailDotsOut + '-friends.json').pipe(map( friends => {
-      // let indideFriends = friends[Object.keys(friends)[0]] ;
-      // return indideFriends[Object.keys(indideFriends)[0]] ;
-      return friends ;
-    }));
+    // return this.http.get<Friend[]>(this.baseURL + this.userEmailDotsOut + '-friends.json').pipe(map( friends => {
+     // // let indideFriends = friends[Object.keys(friends)[0]] ;
+     // // return indideFriends[Object.keys(indideFriends)[0]] ;
+      // return friends ;
+      return this.db.collection(this.user.email + '-friends').valueChanges(); // need to change dynamicly depend on user
+    
 }
   
   
