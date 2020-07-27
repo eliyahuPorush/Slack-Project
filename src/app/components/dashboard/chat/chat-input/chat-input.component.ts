@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-chat-input',
@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./chat-input.component.css']
 })
 export class ChatInputComponent implements OnInit {
-
+@ViewChild('input') textContnent: ElementRef ;
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  onSend(){
+    let text = this.textContnent.nativeElement.value;
+    
+    
+  }
 }

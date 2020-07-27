@@ -30,7 +30,7 @@ export class FriendsDataService {
      // // let indideFriends = friends[Object.keys(friends)[0]] ;
      // // return indideFriends[Object.keys(indideFriends)[0]] ;
       // return friends ;
-      return this.db.collection(this.user.email + '-friends').valueChanges(); // need to change dynamicly depend on user
+      return this.db.collection(this.user.email + '-friends').valueChanges(); 
     
 }
   
@@ -40,9 +40,14 @@ export class FriendsDataService {
       );
   }
   addFriend(friend: Friend){
-    this.http.put(this.baseURL + this.userEmailDotsOut + '-friends.json', {friend}).subscribe( // need to be change
-      () => console.log("friend added")
-    ) ;
+    // this.http.put(this.baseURL + this.userEmailDotsOut + '-friends.json', {friend}).subscribe( // need to be change
+    //   () => console.log("friend added")
+    // ) ;
+    this.db.collection(this.user.email + '-friends').doc(friend.email).set({name: friend.name}) ;
+
 
   }
+  getFriend(friendEmail: string){
+    return this.db.collection(this.user.email + '-friends').doc(friendEmail).valueChanges()
+    }
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UsersDataService } from 'src/app/services/users-data.service';
-import { Friend } from 'src/app/models/friend.model';
 import { FriendsDataService } from 'src/app/services/friends-data.service';
 import { Observable } from 'rxjs';
 
@@ -27,6 +26,9 @@ export class UsersListComponent implements OnInit {
   }
   addFriend(){
     this.router.navigate(['add_friend'], {relativeTo: this.activeRoute})
+  }
+  friendSelected(friendEmail: string){
+    this.router.navigate(["chat"], {relativeTo: this.activeRoute, queryParams:{'friend': friendEmail}})
   }
 
 }

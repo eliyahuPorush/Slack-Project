@@ -23,6 +23,7 @@ export class AddFriendComponent implements OnInit {
   if(this.addFriendForm.valid){
     let newFriend = new Friend(this.addFriendForm.controls.name.value, this.addFriendForm.controls.email.value) ;
     this.friendDataSRV.addFriend(newFriend) ;
+    this.addFriendForm.reset() ;
   }
     
   }

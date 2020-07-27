@@ -1,6 +1,12 @@
 <div *ngIf="friends">
     <div class="col-12">
-    <a  *ngFor="let friend of friends | async"  href="#" class="list-group-item list-group-item-action list-group-item-info row-2 users-list">{{friend.name}}</a>
+<a  
+    *ngFor="let friend of friends | async" 
+    (click)="friendSelected(friend.email)" 
+    class="list-group-item list-group-item-action list-group-item-info row-2 users-list"
+    >
+    {{friend.name}}
+</a>
     <button class="btn btn-danger" (click)="addFriend()">Add Friend</button>
 </div>
 </div>
