@@ -1,3 +1,14 @@
 .users-list{
     /* width: 20%; */
 }
+
+   .col-12{
+       height: 100vh;
+   }
+
+.friend{
+    color: white ; 
+    background-color: #210442;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    margin-left: 0.1% ;
+}

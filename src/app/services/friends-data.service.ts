@@ -7,6 +7,7 @@ import { User } from '../models/user';
 import { AuthService } from './auth.service';
 import { Friend } from '../models/friend.model';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +20,10 @@ export class FriendsDataService {
   constructor(
     private http: HttpClient,
     private authSRV: AuthService,
-   private db: AngularFirestore
-  ) { 
-
+    private db: AngularFirestore,
+    private activeRoute: ActivatedRoute
+     ) { 
+      
   }
   get friends(){ return this.friendsList} ;
 
@@ -49,5 +51,21 @@ export class FriendsDataService {
   }
   getFriend(friendEmail: string){
     return this.db.collection(this.user.email + '-friends').doc(friendEmail).valueChanges()
+    }
+    addText(text: string){
+      let activeFriendEmail = this.activeRoute.snapshot.queryParams["friend"] ;
+      // this.db.collection(this.user.email + '-friends').doc(activeFriendEmail).set({})
+      // this.setNewTextArr(activeFriendEmail) ;
+      this.db.collection(this.user.email + '-friends').valueChanges().subscribe( l => {
+        console.log(l[0])
+        
+      })
+    }
+    setNewTextArr(activeFriendEmail: string){
+      let oldText ;
+      this.db.collection(this.user.email + '-friends').doc(activeFriendEmail).valueChanges().subscribe( text => oldText = text["texts"]) ;
+      console.log(oldText);
+      
+
     }
 }

@@ -2,12 +2,18 @@
     display: flex ;
 
 }
-app-users-list{
-    width: 20% ;
-}
+
 app-chat{
     width: 80% ;
     border: 3px solid red ;
     
     
+}
+.verLine{
+    margin-right: 3%;
+    border-left: 2px solid #7942b8;
+    height: 95vh;
+}
+span{
+    color: cornflowerblue
 }
