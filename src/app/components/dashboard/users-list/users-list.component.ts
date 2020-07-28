@@ -18,11 +18,6 @@ export class UsersListComponent implements OnInit {
   ngOnInit(): void {
     
      this.friends = this.friendsData.getFriendsFromServer()
-      // .subscribe( 
-    //     friends => {
-    //   this.friends = friends[Object.keys(friends)[0]] ;
-    // }) ;
-    
   }
   addFriend(){
     this.router.navigate(['add_friend'], {relativeTo: this.activeRoute})

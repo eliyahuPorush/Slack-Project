@@ -10,7 +10,7 @@ import { AngularFirestoreCollection } from '@angular/fire/firestore/public_api';
   styleUrls: ['./chat-messages.component.css']
 })
 export class ChatMessagesComponent implements OnInit {
-  messages:string[]
+  messages:Observable<any> ;
   constructor(
     private activeRoute: ActivatedRoute,
     private friendSRV: FriendsDataService
@@ -19,11 +19,7 @@ export class ChatMessagesComponent implements OnInit {
   ngOnInit(): void {
     this.activeRoute.queryParams.subscribe(
       (params: Params) => {
-    this.friendSRV.getFriend(params['friend']).subscribe( friend =>
-     this.messages = friend['texts'] 
-      
-    )
-                
+    this.messages = this.friendSRV.getFriendMessages(params['friend'])
   })
 }
 
