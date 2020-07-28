@@ -1,5 +1,6 @@
 .dash{
     display: flex ;
+    flex-direction: row;
 
 }
 
@@ -9,11 +10,10 @@ app-chat{
     
     
 }
-.verLine{
-    margin-right: 3%;
-    border-left: 2px solid #7942b8;
-    height: 95vh;
-}
+
 span{
     color: cornflowerblue
+}
+:host app-users-list{
+    background-color: #2c1b41;
 }

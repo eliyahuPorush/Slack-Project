@@ -8,7 +8,10 @@
 
 .friend{
     color: white ; 
-    background-color: #210442;
+    /* background-color: #321c4b; */
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     margin-left: 0.1% ;
+}
+.friend:hover{
+    background-color: rgb(75, 36, 112);
 }
