@@ -36,10 +36,10 @@ export class FriendsDataService {
     this.db.collection(this.user.email + '-friends').doc(friend.email).set({name: friend.name}) ;
   }
   getFriendMessages(friendEmail: string){
-    // return this.db.collection(this.user.email + '-friends').doc(friendEmail).valueChanges();
+    let activeFriendEmail = this.activeRoute.snapshot.queryParams["friend"] ;
       return this.db.
         collection(this.user.email + "-friends").
-        doc(friendEmail).
+        doc(activeFriendEmail).
         collection("text_messages").
         valueChanges().
         pipe(map(
@@ -50,18 +50,17 @@ export class FriendsDataService {
         }))
     } 
     addText(text: string){
+      const id = this.db.createId() ;
       let activeFriendEmail = this.activeRoute.snapshot.queryParams["friend"] ;
-      // this.db.collection(this.user.email + '-friends').doc(activeFriendEmail).set({})
-      // this.setNewTextArr(activeFriendEmail) ;
-      // this.db.collection("/eliyahuporush@gmail.com-friends").doc("nili@gmail.com").collection("text_messages").valueChanges().subscribe(
-      //   l => l.forEach(o => console.log(o)
-      //   )
-        
-      // )
-      this.db.collection(this.user.email + "-friends").doc(activeFriendEmail).collection("text_messages").valueChanges().subscribe(
-        ll => console.log(ll)
-        
-      )
+      this.db.
+      collection(this.user.email + "-friends").
+      doc(activeFriendEmail).
+      collection("text_messages").doc(id).set({message: text}) ;
+      const id2 = this.db.createId() ;
+      this.db.
+      collection(activeFriendEmail + "-friends").
+      doc(this.user.email).
+      collection("text_messages").doc(id2).set({message: text})
 
     }
 
