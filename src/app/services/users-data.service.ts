@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { User } from '../models/user';
 import { Friend } from '../models/friend.model';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -13,23 +14,25 @@ export class UsersDataService {
   
   constructor(
     private http: HttpClient,
-    private authSRV: AuthService
+    private authSRV: AuthService,
+    private db: AngularFirestore
     ) { }
 
 
   updateProfile(name: string, imgURL: string){
-    let url = 'https://identitytoolkit.googleapis.com/v1/accounts:update?key=' + 'AIzaSyCFHhL5pC5_ZeVTaq8bQgfCSNcUOjPvNaE' ;
+    // let url = 'https://identitytoolkit.googleapis.com/v1/accounts:update?key=' + 'AIzaSyCFHhL5pC5_ZeVTaq8bQgfCSNcUOjPvNaE' ;
       this.user =  this.authSRV.getUser() ;
     
-    this.http.post(url, {
-      idToken: this.user.idToken,
-      displayName: name,
-      photoUrl: imgURL,
-      returnSecureToken: true
+    // this.http.post(url, {
+    //   idToken: this.user.idToken,
+    //   displayName: name,
+    //   photoUrl: imgURL,
+    //   returnSecureToken: true
 
-    }).subscribe( updateData => {
-      console.log(updateData + " -- updated !!!");
+    // }).subscribe( updateData => {
+    //   console.log(updateData + " -- updated !!!");
       
-    })
+    // })
+                                    //            need to be change !!!
   }
 }
