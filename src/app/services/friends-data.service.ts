@@ -7,7 +7,7 @@ import { User } from '../models/user';
 import { AuthService } from './auth.service';
 import { Friend } from '../models/friend.model';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +34,7 @@ export class FriendsDataService {
 
   addFriend(friend: Friend){
     this.db.collection(this.user.email + '-friends').doc(friend.email).set({name: friend.name}) ;
+
   }
   getFriendMessages(friendEmail: string){
     let activeFriendEmail = this.activeRoute.snapshot.queryParams["friend"] ;

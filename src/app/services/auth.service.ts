@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
 import { Subject, BehaviorSubject } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 
 interface responced{
@@ -24,7 +25,10 @@ export class AuthService {
   user:User ;
   isLogedIn = false ;
   errorFound = new Subject<string>() ;
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+    private http: HttpClient, 
+    private router: Router,
+    private db: AngularFirestore) { }
 
 
   signUp(email: string, password: string){
@@ -36,6 +40,8 @@ export class AuthService {
     }).subscribe((res: responced) => {
       this.isLogedIn = true ;
         this.user = new User(res.idToken, res.email, "" ,res.localId, res.refreshToken, res.expiresIn) ;
+        // create a new collection of this user
+        this.db.firestore.collection(email + "-friends").doc(email).set({email:email, name: `${email}(my)`});
         this.router.navigate([res.email, 'details']) ;
       
     })
