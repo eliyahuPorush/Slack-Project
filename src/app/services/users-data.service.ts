@@ -22,6 +22,10 @@ export class UsersDataService {
   updateProfile(name: string, imgURL: string){
     // let url = 'https://identitytoolkit.googleapis.com/v1/accounts:update?key=' + 'AIzaSyCFHhL5pC5_ZeVTaq8bQgfCSNcUOjPvNaE' ;
       this.user =  this.authSRV.getUser() ;
+      this.db.firestore.
+      collection(this.user.email + "-details").
+      doc("details").
+      set({email:this.user.email, name: name, imgURL: imgURL});
     
     // this.http.post(url, {
     //   idToken: this.user.idToken,

@@ -14,6 +14,12 @@ app-chat{
 span{
     color: cornflowerblue
 }
-:host app-users-list{
+/* :host app-users-list{
     background-color: #2c1b41;
+} */
+header{
+    border-bottom: 2px solid black;
+    position: absolute;
+    z-index: 2;
+    width: 100%;
 }

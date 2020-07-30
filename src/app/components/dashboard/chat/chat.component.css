@@ -1,6 +1,8 @@
 .chat{
     display: flex ;
     flex-direction: column ;
+    overflow-y: auto;
+    
 }
 :host app-chat-input{
     position: absolute;

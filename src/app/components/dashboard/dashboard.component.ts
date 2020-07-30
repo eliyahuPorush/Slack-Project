@@ -5,6 +5,7 @@ import { Friend } from 'src/app/models/friend.model';
 import { FriendsDataService } from 'src/app/services/friends-data.service';
 import { Message } from 'src/app/models/message.model';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,12 +14,16 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class DashboardComponent implements OnInit {
   user ;
+  userName: Observable<any> ; // dosent work
   constructor(
-    private authSRV: AuthService
+    private authSRV: AuthService,
+    private db: AngularFirestore
     ) { }
 
   ngOnInit(): void {
-   this.user = this.authSRV.getUser() ;
+    this.user = this.authSRV.getUser() ;
+    this.userName = this.db.collection(this.user.email + "-details").valueChanges() ; // not work
+   
   }
 
 }

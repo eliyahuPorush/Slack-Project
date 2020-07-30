@@ -1,17 +1,23 @@
-.users-list{
-    /* width: 20%; */
-}
 
    .col-12{
        height: 100vh;
+       overflow-y: auto;
    }
 
 .friend{
-    color: white ; 
+    color: rgb(129, 67, 67) ; 
     /* background-color: #321c4b; */
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     margin-left: 0.1% ;
+    height: 50px;
+    width: 200px;
+    text-align: center;
 }
 .friend:hover{
-    background-color: rgb(75, 36, 112);
+    /* background-color: rgb(75, 36, 112); */
+    color: #13013b ; 
+    cursor: pointer;
+}
+button{
+    z-index: 2;
 }
