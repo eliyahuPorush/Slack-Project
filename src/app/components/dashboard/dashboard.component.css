@@ -1,15 +1,15 @@
 .dash{
     display: flex ;
     flex-direction: row;
+    background-color: blanchedalmond;
+
+
 
 }
+/* :host app-chat{
+    width: 550px;
+} */
 
-app-chat{
-    width: 80% ;
-    border: 3px solid red ;
-    
-    
-}
 
 span{
     color: cornflowerblue
