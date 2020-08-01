@@ -7,6 +7,7 @@ import { PathGuardGuard } from './services/path-guard.guard';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AddFriendComponent } from './components/add-friend/add-friend.component';
 import { ChatComponent } from './components/dashboard/chat/chat.component';
+import { DefaultComponent } from './components/dashboard/default/default.component';
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
   {path: ':user_email/dashboard' , component: DashboardComponent, canActivate: [PathGuardGuard], children: [
       { path: 'chat', canActivateChild:[PathGuardGuard],component: ChatComponent},
       { path: 'add_friend', component: AddFriendComponent},
-    // { path: '', redirectTo: 'chat'},
+      { path: "default", component: DefaultComponent},
+      { path: "" , redirectTo: "default", pathMatch: "full"}
     // { path: '**', redirectTo: 'chat',canActivateChild:[PathGuardGuard], pathMatch: 'full'}
   ] },
   { path: ':user_email/details', component: SelfDetailsComponent},

@@ -26,17 +26,5 @@ export class UsersDataService {
       collection(this.user.email + "-details").
       doc("details").
       set({email:this.user.email, name: name, imgURL: imgURL});
-    
-    // this.http.post(url, {
-    //   idToken: this.user.idToken,
-    //   displayName: name,
-    //   photoUrl: imgURL,
-    //   returnSecureToken: true
-
-    // }).subscribe( updateData => {
-    //   console.log(updateData + " -- updated !!!");
-      
-    // })
-                                    //            need to be change !!!
   }
 }

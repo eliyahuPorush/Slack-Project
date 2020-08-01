@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
 })
 export class DashboardComponent implements OnInit {
   user ;
-  userName: Observable<any> ; // dosent work
+  userName: string ;
   constructor(
     private authSRV: AuthService,
     private db: AngularFirestore
@@ -22,8 +22,10 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.authSRV.getUser() ;
-    this.userName = this.db.collection(this.user.email + "-details").valueChanges() ; // not work
-   
+    this.db.collection(this.user.email + "-details").valueChanges().subscribe(
+      data => {
+        this.userName = data[0]["name"] ;
+      });
   }
 
 }
