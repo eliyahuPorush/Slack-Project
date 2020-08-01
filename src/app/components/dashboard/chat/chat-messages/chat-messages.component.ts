@@ -11,6 +11,7 @@ import { AngularFirestoreCollection } from '@angular/fire/firestore/public_api';
 })
 export class ChatMessagesComponent implements OnInit {
   messages:Observable<any> ;
+  name: string ;
   constructor(
     private activeRoute: ActivatedRoute,
     private friendSRV: FriendsDataService
@@ -21,6 +22,14 @@ export class ChatMessagesComponent implements OnInit {
       (params: Params) => {
     this.messages = this.friendSRV.getFriendMessages(params['friend'])
   })
+  this.friendSRV.getFriendName().subscribe(
+    name => {
+      this.name = name["name"]
+      console.log(this.name);
+
+    }
+      
+  )
 }
 
 }

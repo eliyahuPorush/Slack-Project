@@ -30,7 +30,11 @@ export class FriendsDataService {
   getFriendsFromServer(){
       return this.db.collection(this.user.email + '-friends').valueChanges(); 
 }
-  
+
+  getFriendName(){
+    let activeFriendEmail = this.activeRoute.snapshot.queryParams["friend"] ;
+    return this.db.collection(this.user.email + "-friends").doc(activeFriendEmail).valueChanges()
+  }
 
   addFriend(friend: Friend){
     this.db.collection(this.user.email + '-friends').doc(friend.email).set({name: friend.name, email:friend.email}) ;

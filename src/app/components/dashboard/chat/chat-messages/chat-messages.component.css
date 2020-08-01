@@ -6,3 +6,14 @@
     background-color: darkgoldenrod;
     min-width: 40vh;
 }
+
+.friend-name{
+    position: relative;
+    top: 40%;
+    left: 40%;
+}
+
+.spinner-border{
+    width: 200px;
+    height: 200px;
+}
