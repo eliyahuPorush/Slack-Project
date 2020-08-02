@@ -2,12 +2,12 @@
 
 <div class="friend-details card">
    <h5 class="card-title">Friend Details</h5>
-  <label class="card-text" for="name"><b>Name:</b> {{friend.name}}</label>
+  <label class="card-text" for="name"><b>Name:</b> {{friend.name | name}}</label>
   <label class="card-text" for="email"><b>Email:</b> {{friend.email}}</label>
 
 </div>
  <div class="chat">
-    <h1 class="name">{{friend.name}}</h1>
+    <h1 class="name">{{friend.name | name}}</h1>
     <app-chat-messages></app-chat-messages>
     <app-chat-input></app-chat-input>  
  </div>

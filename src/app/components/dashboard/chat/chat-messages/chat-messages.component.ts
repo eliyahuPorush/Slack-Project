@@ -21,7 +21,8 @@ export class ChatMessagesComponent implements OnInit {
     this.messages = this.friendSRV.getFriendMessages() ;
     this.activeRoute.queryParams.subscribe(
       () => {
-    this.messages = this.friendSRV.getFriendMessages()
+    this.messages = this.friendSRV.getFriendMessages() ;
+    this.messagesLoded = true ;
   })
 }
 

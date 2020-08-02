@@ -23,6 +23,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment.prod';
 import { DefaultComponent } from './components/dashboard/default/default.component';
+import { NamePipe } from './pipes/name.pipe';
 
 
 
@@ -39,7 +40,8 @@ import { DefaultComponent } from './components/dashboard/default/default.compone
     ChatMessagesComponent,
     PageNotFoundComponent,
     AddFriendComponent,
-    DefaultComponent
+    DefaultComponent,
+    NamePipe
   ],
   imports: [
     BrowserModule,

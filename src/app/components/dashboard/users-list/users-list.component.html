@@ -5,7 +5,7 @@
     *ngFor="let friend of friends | async" 
     (click)="friendSelected(friend.email)" 
     class="row friend card bg-light"    >
-    {{friend.name}}
+    {{friend.name | name}}
 </a>
     <button class="btn btn-dark" (click)="addFriend()">Add Friend</button>
 </div>

@@ -12,6 +12,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class DashboardComponent implements OnInit {
   user ;
   userName: string ;
+  listLoded: boolean = false ;
   constructor(
     private authSRV: AuthService,
     private db: AngularFirestore
@@ -22,6 +23,7 @@ export class DashboardComponent implements OnInit {
     this.db.collection(this.user.email + "-details").valueChanges().subscribe(
       data => {
         this.userName = data[0]["name"] ;
+        this.listLoded = true ;
       });
   }
 
