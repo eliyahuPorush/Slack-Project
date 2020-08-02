@@ -18,18 +18,19 @@ export class ChatMessagesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.messages = this.friendSRV.getFriendMessages(this.activeRoute.snapshot.queryParams["friend"]) ;
     this.activeRoute.queryParams.subscribe(
       (params: Params) => {
     this.messages = this.friendSRV.getFriendMessages(params['friend'])
   })
-  this.friendSRV.getFriendName().subscribe(
-    name => {
-      this.name = name["name"]
-      console.log(this.name);
+  // this.friendSRV.getFriend().subscribe(
+  //   name => {
+  //     this.name = name["name"]
+  //     console.log(this.name);
 
-    }
+  //   }
       
-  )
+  // )
 }
 
 }

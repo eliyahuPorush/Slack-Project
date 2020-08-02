@@ -1,9 +1,12 @@
 <header class="friend-name">
     {{name}}
 </header>
-<ul *ngFor="let message of messages | async">
+<div class="messages-cont">
+    <ul *ngFor="let message of messages | async">
     <div class="message">{{message}}</div>
 </ul>
+</div>
+
 <!-- <div *ngIf="!messages" class="spinner-border" role="status">
     <span class="sr-only">Loading...</span>
 </div> -->

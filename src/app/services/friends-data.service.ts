@@ -18,7 +18,6 @@ export class FriendsDataService {
   user:User = this.authSRV.getUser() ;
   userEmailDotsOut = this.user.email.replace('.','') ;
   constructor(
-    private http: HttpClient,
     private authSRV: AuthService,
     private db: AngularFirestore,
     private activeRoute: ActivatedRoute
@@ -31,9 +30,10 @@ export class FriendsDataService {
       return this.db.collection(this.user.email + '-friends').valueChanges(); 
 }
 
-  getFriendName(){
+  getFriend(){
     let activeFriendEmail = this.activeRoute.snapshot.queryParams["friend"] ;
-    return this.db.collection(this.user.email + "-friends").doc(activeFriendEmail).valueChanges()
+    this.activeRoute.queryParams.subscribe( params => activeFriendEmail = params["friend"]) ;
+    return this.db.collection(this.user.email + "-friends").doc(activeFriendEmail).valueChanges() ;
   }
 
   addFriend(friend: Friend){
@@ -57,14 +57,15 @@ export class FriendsDataService {
       const id = this.db.createId() ;
       let activeFriendEmail = this.activeRoute.snapshot.queryParams["friend"] ;
       this.db.
-      collection(this.user.email + "-friends").
-      doc(activeFriendEmail).
-      collection("text_messages").doc(id).set({message: text}) ;
+        collection(this.user.email + "-friends").
+        doc(activeFriendEmail).
+        collection("text_messages").doc(id).set({message: text}) ;
+
       const id2 = this.db.createId() ;
       this.db.
-      collection(activeFriendEmail + "-friends").
-      doc(this.user.email).
-      collection("text_messages").doc(id2).set({message: text})
+        collection(activeFriendEmail + "-friends").
+        doc(this.user.email).
+        collection("text_messages").doc(id2).set({message: text})
 
     }
 

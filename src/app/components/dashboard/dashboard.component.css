@@ -19,7 +19,7 @@ span{
 } */
 header{
     border-bottom: 2px solid black;
-    position: absolute;
+    position: relative;
     z-index: 2;
     width: 100%;
 }

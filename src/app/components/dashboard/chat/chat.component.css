@@ -2,6 +2,7 @@
     display: flex ;
     flex-direction: column ;
     overflow-y: auto;
+    overflow-x: hidden;
     
 }
 :host app-chat-input{
@@ -9,5 +10,39 @@
     bottom: 5%;
     height: 10px;
     z-index: 1;
+    width: 75vw ;
     
+}
+h1{
+    z-index: 3;
+}
+.friend-details{
+    box-shadow: 5px 10px #888888;;
+    border: 2px solid black ;
+    z-index: 3;
+    position: fixed;
+    top: 30% ;
+    right: 5%;
+    width: 10vw ;
+    height: 30vh;
+    background-color: rgb(138, 123, 85) ;
+    text-align: center ;
+}
+.name{
+    float: left;
+    color: rgb(87, 87, 51) ;
+    font-style: oblique ;
+    position: absolute ;
+    left: 43vw;
+    top: 10% ;
+}
+.card-title{
+    color: #040450 ;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+    font-style: italic ;
+    font-size: 4ch;
+}
+.card-text{
+    color: aliceblue ;
+    font-size: 2ch ;
 }
