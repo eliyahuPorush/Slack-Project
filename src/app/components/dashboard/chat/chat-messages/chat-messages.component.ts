@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { Observable } from 'rxjs';
 import { FriendsDataService } from 'src/app/services/friends-data.service';
-import { AngularFirestoreCollection } from '@angular/fire/firestore/public_api';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-chat-messages',
@@ -11,26 +11,18 @@ import { AngularFirestoreCollection } from '@angular/fire/firestore/public_api';
 })
 export class ChatMessagesComponent implements OnInit {
   messages:Observable<any> ;
-  name: string ;
+  messagesLoded: boolean = false ;  // try to show loading spinner  --   dosent work!
   constructor(
     private activeRoute: ActivatedRoute,
     private friendSRV: FriendsDataService
   ) { }
 
   ngOnInit(): void {
-    this.messages = this.friendSRV.getFriendMessages(this.activeRoute.snapshot.queryParams["friend"]) ;
+    this.messages = this.friendSRV.getFriendMessages() ;
     this.activeRoute.queryParams.subscribe(
-      (params: Params) => {
-    this.messages = this.friendSRV.getFriendMessages(params['friend'])
+      () => {
+    this.messages = this.friendSRV.getFriendMessages()
   })
-  // this.friendSRV.getFriend().subscribe(
-  //   name => {
-  //     this.name = name["name"]
-  //     console.log(this.name);
-
-  //   }
-      
-  // )
 }
 
 }

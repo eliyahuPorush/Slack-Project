@@ -23,6 +23,13 @@ export class ChatComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.friendsSRV.getFriend().subscribe(
+      friend => {
+        console.log(friend);
+        
+        this.friend = friend as Friend;
+        
+      }) 
     this.activeRoute.queryParams.subscribe(
       () => {
         this.friendsSRV.getFriend().subscribe(

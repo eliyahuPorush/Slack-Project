@@ -1,14 +1,11 @@
-<header class="friend-name">
-    {{name}}
-</header>
 <div class="messages-cont">
     <ul *ngFor="let message of messages | async">
     <div class="message">{{message}}</div>
 </ul>
 </div>
 
-<!-- <div *ngIf="!messages" class="spinner-border" role="status">
+<div *ngIf="!messagesLoded" class="spinner-border" role="status">
     <span class="sr-only">Loading...</span>
-</div> -->
+</div>
 
 <!-- spiner need to take care of -->

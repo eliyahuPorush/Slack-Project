@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { tap, map } from 'rxjs/operators' ;
+import {  map } from 'rxjs/operators' ;
 
 
 import { User } from '../models/user';
@@ -9,6 +8,14 @@ import { Friend } from '../models/friend.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 
+
+class newFriend{
+  constructor(public name:string,
+    public email: string, 
+    public imgURL?:string 
+    ){}
+ 
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +23,6 @@ export class FriendsDataService {
   private friendsList: Friend[] ;
   baseURL = "https://slack-b0c55.firebaseio.com/" ;
   user:User = this.authSRV.getUser() ;
-  userEmailDotsOut = this.user.email.replace('.','') ;
   constructor(
     private authSRV: AuthService,
     private db: AngularFirestore,
@@ -24,7 +30,6 @@ export class FriendsDataService {
      ) { 
       
   }
-  get friends(){ return this.friendsList} ;
 
   getFriendsFromServer(){
       return this.db.collection(this.user.email + '-friends').valueChanges(); 
@@ -37,9 +42,19 @@ export class FriendsDataService {
   }
 
   addFriend(friend: Friend){
-    this.db.collection(this.user.email + '-friends').doc(friend.email).set({name: friend.name, email:friend.email}) ;
+    console.log("friend-" + friend["name"]);
+    
+    let newFriend1: newFriend ;
+    newFriend1 = new newFriend(friend.name,friend.email, "") ;
+      this.db.collection(friend.email + "-details").doc("details").valueChanges().subscribe(
+        details => newFriend1.imgURL = details["imgURL"], error => console.log(error)
+        
+      )
+      console.log(newFriend1);
+      
+    this.db.collection(this.user.email + '-friends').doc(friend.email).set(Object.assign({}, newFriend1)) ;
   }
-  getFriendMessages(friendEmail: string){
+  getFriendMessages(){
     let activeFriendEmail = this.activeRoute.snapshot.queryParams["friend"] ;
       return this.db.
         collection(this.user.email + "-friends").
