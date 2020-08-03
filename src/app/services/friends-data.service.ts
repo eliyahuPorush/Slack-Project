@@ -9,7 +9,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 
 
-class newFriend{
+class FriendModel{
   constructor(public name:string,
     public email: string, 
     public imgURL?:string 
@@ -44,15 +44,19 @@ export class FriendsDataService {
   addFriend(friend: Friend){
     console.log("friend-" + friend["name"]);
     
-    let newFriend1: newFriend ;
-    newFriend1 = new newFriend(friend.name,friend.email, "") ;
-      this.db.collection(friend.email + "-details").doc("details").valueChanges().subscribe(
-        details => newFriend1.imgURL = details["imgURL"], error => console.log(error)
-        
-      )
-      console.log(newFriend1);
+    let newFriend: FriendModel ;
+    newFriend = new FriendModel(friend.name,friend.email, "") ;
+    try{
+    this.db.collection(friend.email + "-details").doc("details").valueChanges().subscribe(
+        details => newFriend.imgURL = details["imgURL"])
+    }  
+    catch{
+      console.log("didnt Work");
+    }
+
+      console.log(newFriend);
       
-    this.db.collection(this.user.email + '-friends').doc(friend.email).set(Object.assign({}, newFriend1)) ;
+    this.db.collection(this.user.email + '-friends').doc(friend.email).set(Object.assign({}, newFriend)) ;
   }
   getFriendMessages(){
     let activeFriendEmail = this.activeRoute.snapshot.queryParams["friend"] ;
