@@ -1,16 +1,17 @@
-<header class="header bg-light">
-    <ul>
-        <h3 style="text-align: center">Hello <span>{{userName | name}}</span></h3>
-    </ul>
-</header>
-
-
-<div class="dash">
-    <app-users-list></app-users-list>
-    <router-outlet></router-outlet>
     <div *ngIf="!listLoded" class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>
     </div>
+<div [ngClass]="{blur: !listLoded}" >
+    <header class="header bg-light">
+        <ul>
+            <h3 style="text-align: center">Hello <span>{{userName | name}}</span></h3>
+            <button class="btn btn-dark add-friend" (click)="addFriend()">Add Friend</button>
+        </ul>
+    </header>
 
+
+    <div class="dash">
+        <app-users-list></app-users-list>
+        <router-outlet></router-outlet>
+    </div>
 </div>
-

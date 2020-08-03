@@ -10,7 +10,7 @@ import { tap } from 'rxjs/operators';
   styleUrls: ['./chat-messages.component.css']
 })
 export class ChatMessagesComponent implements OnInit {
-  messages:Observable<any> ;
+  messages ;
   messagesLoded: boolean = false ;  // try to show loading spinner  --   dosent work!
   constructor(
     private activeRoute: ActivatedRoute,
@@ -18,7 +18,12 @@ export class ChatMessagesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.messages = this.friendSRV.getFriendMessages() ;
+    this.friendSRV.getFriendMessages().subscribe(
+      mes => 
+      {
+        this.messages = mes;
+        this.messagesLoded = true ;
+      }) ;
     this.activeRoute.queryParams.subscribe(
       () => {
     this.messages = this.friendSRV.getFriendMessages() ;

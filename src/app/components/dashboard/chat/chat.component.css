@@ -5,14 +5,14 @@
     overflow-x: hidden;
     
 }
-:host app-chat-input{
+/* :host app-chat-input{
     position: absolute;
     bottom: 5%;
     height: 10px;
     z-index: 1;
     width: 75vw ;
     
-}
+} */
 h1{
     z-index: 3;
 }

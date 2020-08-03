@@ -15,8 +15,8 @@
 }
 
 .spinner-border{
-    width: 200px;
-    height: 200px;
+    position: relative;
+    left: 50%;
 }
 .messages-cont{
     height: 87vh;

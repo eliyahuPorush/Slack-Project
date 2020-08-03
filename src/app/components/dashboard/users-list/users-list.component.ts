@@ -19,9 +19,7 @@ export class UsersListComponent implements OnInit {
     
      this.friends = this.friendsData.getFriendsFromServer()
   }
-  addFriend(){
-    this.router.navigate(['add_friend'], {relativeTo: this.activeRoute})
-  }
+ 
   friendSelected(friendEmail: string){
     this.router.navigate(["chat"], {relativeTo: this.activeRoute, queryParams:{'friend': friendEmail}})
   }

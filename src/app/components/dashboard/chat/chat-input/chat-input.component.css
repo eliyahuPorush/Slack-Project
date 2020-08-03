@@ -1,0 +1,10 @@
+.input{
+    border-radius: 5%;
+    width: 70vw;
+    
+}
+.row-1{
+    position: absolute;
+    bottom: 5%;
+    z-index: 1;
+}

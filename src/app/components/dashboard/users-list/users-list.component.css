@@ -17,6 +17,10 @@
     color: #13013b ; 
     cursor: pointer;
 }
-button{
+
+.add-friend{
+    position: absolute;
     z-index: 2;
+    bottom: 5%;
+
 }
