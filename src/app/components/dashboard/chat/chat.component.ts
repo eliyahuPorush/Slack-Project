@@ -6,6 +6,7 @@ interface Friend{
   name:string ;
   email: string ;
   text: string[] ;
+  imgURL?:string ;
 }
 
 @Component({
@@ -17,6 +18,7 @@ interface Friend{
 
 export class ChatComponent implements OnInit {
   friend: Friend;
+  type = "chat" ;
   constructor(
     private activeRoute: ActivatedRoute,
     private friendsSRV: FriendsDataService
@@ -25,8 +27,6 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
     this.friendsSRV.getFriend().subscribe(
       friend => {
-        console.log(friend);
-        
         this.friend = friend as Friend;
         
       }) 
@@ -34,13 +34,8 @@ export class ChatComponent implements OnInit {
       () => {
         this.friendsSRV.getFriend().subscribe(
           friend => {
-            console.log(friend);
-            
             this.friend = friend as Friend;
-            
           }) }) ;
-
-
   }
 
 }

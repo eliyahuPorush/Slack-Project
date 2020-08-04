@@ -1,4 +1,4 @@
-.input{
+.input-text{
     border-radius: 5%;
     width: 70vw;
     
@@ -7,4 +7,6 @@
     position: absolute;
     bottom: 5%;
     z-index: 1;
+    height: 10vh;
 }
+

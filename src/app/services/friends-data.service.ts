@@ -6,22 +6,13 @@ import { User } from '../models/user';
 import { AuthService } from './auth.service';
 import { Friend } from '../models/friend.model';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 
-class FriendModel{
-  constructor(public name:string,
-    public email: string, 
-    public imgURL?:string 
-    ){}
- 
-}
 @Injectable({
   providedIn: 'root'
 })
 export class FriendsDataService {
-  private friendsList: Friend[] ;
-  baseURL = "https://slack-b0c55.firebaseio.com/" ;
   user:User = this.authSRV.getUser() ;
   constructor(
     private authSRV: AuthService,
@@ -42,21 +33,17 @@ export class FriendsDataService {
   }
 
   addFriend(friend: Friend){
-    console.log("friend-" + friend["name"]);
-    
-    let newFriend: FriendModel ;
-    newFriend = new FriendModel(friend.name,friend.email, "") ;
-    try{
-    this.db.collection(friend.email + "-details").doc("details").valueChanges().subscribe(
-        details => newFriend.imgURL = details["imgURL"])
-    }  
-    catch{
-      console.log("didnt Work");
-    }
 
-      console.log(newFriend);
-      
-    this.db.collection(this.user.email + '-friends').doc(friend.email).set(Object.assign({}, newFriend)) ;
+    let name = friend.name ;
+    let email = friend.email ;
+    let imgURL ;
+   
+        this.db.collection(friend.email + "-details").doc("details").valueChanges().subscribe(
+        details => {
+          imgURL = details ? details["imgURL"]: "";
+          console.log("in " +imgURL);
+          this.db.collection(this.user.email + '-friends').doc(friend.email).set({name, email, imgURL}) ;
+        })
   }
   getFriendMessages(){
     let activeFriendEmail = this.activeRoute.snapshot.queryParams["friend"] ;
@@ -67,24 +54,23 @@ export class FriendsDataService {
         valueChanges().
         pipe(map(
         data => {
-          let newArr: string[] = [] ;
-          data.forEach( item => newArr.push(item["message"]))
+          let newArr = [];
+          data.forEach( item => newArr.push([item["message"], item["owner"]]))
           return newArr ;
         }))
     } 
     addText(text: string){
-      const id = this.db.createId() ;
+      const id = JSON.stringify(new Date().getTime()) ;
       let activeFriendEmail = this.activeRoute.snapshot.queryParams["friend"] ;
       this.db.
         collection(this.user.email + "-friends").
         doc(activeFriendEmail).
-        collection("text_messages").doc(id).set({message: text}) ;
+        collection("text_messages").doc(id).set({message: text, owner: this.user.email}) ;
 
-      const id2 = this.db.createId() ;
       this.db.
         collection(activeFriendEmail + "-friends").
         doc(this.user.email).
-        collection("text_messages").doc(id2).set({message: text})
+        collection("text_messages").doc(id).set({message: text, owner: this.user.email})
 
     }
 

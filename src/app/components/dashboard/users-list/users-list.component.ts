@@ -11,10 +11,10 @@ import { Observable } from 'rxjs';
 })
 export class UsersListComponent implements OnInit {
  friends:Observable<any> ;
+ type = "list" ;
  
 
   constructor(private router: Router, private activeRoute: ActivatedRoute, private usersData: UsersDataService, private friendsData: FriendsDataService) { }
-  @Output() friendsLoaded = new EventEmitter<boolean>() ;
   ngOnInit(): void {
     
      this.friends = this.friendsData.getFriendsFromServer()

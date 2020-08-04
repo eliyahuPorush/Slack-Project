@@ -1,7 +1,8 @@
 
-
-<div class="friend-details card">
+<div *ngIf="friend">
+   <div class="friend-details card">
    <h5 class="card-title">Friend Details</h5>
+   <img class="img" src="{{friend.imgURL}}" alt="" appFriendImgDesign>
   <label class="card-text" for="name"><b>Name:</b> {{friend.name | name}}</label>
   <label class="card-text" for="email"><b>Email:</b> {{friend.email}}</label>
 
@@ -11,6 +12,8 @@
     <app-chat-messages></app-chat-messages>
     <app-chat-input></app-chat-input>  
  </div>
+
+</div>
 
  
 

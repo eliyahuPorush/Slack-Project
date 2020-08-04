@@ -24,6 +24,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment.prod';
 import { DefaultComponent } from './components/dashboard/default/default.component';
 import { NamePipe } from './pipes/name.pipe';
+import { FriendImgDesignDirective } from './directives/friend-img-design.directive';
 
 
 
@@ -41,7 +42,8 @@ import { NamePipe } from './pipes/name.pipe';
     PageNotFoundComponent,
     AddFriendComponent,
     DefaultComponent,
-    NamePipe
+    NamePipe,
+    FriendImgDesignDirective
   ],
   imports: [
     BrowserModule,

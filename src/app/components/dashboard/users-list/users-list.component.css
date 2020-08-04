@@ -24,3 +24,8 @@
     bottom: 5%;
 
 }
+.image-circle{
+    width: 40px;
+    height: 40px;
+    border-radius: 50% ;
+}

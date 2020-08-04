@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
 import { Observable } from 'rxjs';
 import { FriendsDataService } from 'src/app/services/friends-data.service';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth.service';
+
 
 @Component({
   selector: 'app-chat-messages',
@@ -10,25 +12,28 @@ import { tap } from 'rxjs/operators';
   styleUrls: ['./chat-messages.component.css']
 })
 export class ChatMessagesComponent implements OnInit {
-  messages ;
+  messages: Observable<string[]> ;
   messagesLoded: boolean = false ;  // try to show loading spinner  --   dosent work!
   constructor(
     private activeRoute: ActivatedRoute,
-    private friendSRV: FriendsDataService
+    private friendSRV: FriendsDataService,
+    private authSRV: AuthService
   ) { }
 
   ngOnInit(): void {
-    this.friendSRV.getFriendMessages().subscribe(
-      mes => 
-      {
-        this.messages = mes;
-        this.messagesLoded = true ;
-      }) ;
+    this.messages = this.friendSRV.getFriendMessages().pipe(
+      tap(() => this.messagesLoded = true)
+      )
+    
+    
     this.activeRoute.queryParams.subscribe(
       () => {
     this.messages = this.friendSRV.getFriendMessages() ;
-    this.messagesLoded = true ;
   })
+}
+
+ownerMessage(owner: string){
+  return owner == this.authSRV.getUser().email
 }
 
 }

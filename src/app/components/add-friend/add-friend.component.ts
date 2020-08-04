@@ -23,8 +23,8 @@ export class AddFriendComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.authSRV.getUser() ;
   this.addFriendForm = new FormGroup({
-    name: new FormControl(null, [Validators.required, Validators.minLength(2)]),
-    email: new FormControl(null, [Validators.required,Validators.email])
+    name: new FormControl('test9', [Validators.required, Validators.minLength(2)]),
+    email: new FormControl('test9@gmail.com', [Validators.required,Validators.email])
   })    
   }
   onSubmit(){
