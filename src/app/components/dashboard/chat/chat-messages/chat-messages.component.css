@@ -4,8 +4,9 @@
     max-width: 30vw;
     border-radius: 15px;
     color: white ;
-    background-color: rgb(98, 89, 177);
+    background-color: rgba(206, 202, 231, 0.432);
     min-width: 40vh;
+    color: black;
 }
 
 .friend-name{
@@ -23,6 +24,7 @@
     width: 89.5vw ;
 }
 .owner{
-    background-color: aquamarine ;
+    background-color: rgb(129, 156, 187) ;
     margin-left: 30% ;
+    color: white;
 }
