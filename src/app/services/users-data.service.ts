@@ -22,5 +22,7 @@ export class UsersDataService {
       collection(this.user.email + "-details").
       doc("details").
       set({email:this.user.email, name: name, imgURL: imgURL});
+
+      this.db.collection(this.user.email + "-friends").doc(this.user.email).set({name, email: this.user.email, imgURL})
   }
 }
