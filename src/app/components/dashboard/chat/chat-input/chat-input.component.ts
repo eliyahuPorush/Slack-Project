@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FriendsDataService } from 'src/app/services/friends-data.service';
 
 @Component({
@@ -11,9 +10,9 @@ export class ChatInputComponent implements OnInit {
 @ViewChild('input') textContnent: ElementRef ;
 friendEmail: string ;
   constructor(
-    private activeRoute: ActivatedRoute,
     private friendSRV: FriendsDataService
   ) { }
+ 
 
   ngOnInit(): void {
   }

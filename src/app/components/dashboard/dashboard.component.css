@@ -12,7 +12,7 @@
 
 
 span{
-    color: cornflowerblue
+    color: rgb(129, 156, 187)
 }
 /* :host app-users-list{
     background-color: #2c1b41;
@@ -31,4 +31,12 @@ header{
 .spinner-border{
     position: relative;
     left: 50%;
+}
+ul{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    direction: ltr;
+
+
 }
