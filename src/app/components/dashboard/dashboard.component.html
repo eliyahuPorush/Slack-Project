@@ -3,9 +3,10 @@
     </div>
 <div [ngClass]="{blur: !listLoded}" >
     <header class="header bg-light">
+        <br>
         <ul>
+            <button class="btn btn-dark add-friend nav" (click)="addFriend()">Add Friend</button>
             <h3 style="text-align: center">Hello <span>{{userName | name}}</span></h3>
-            <button class="btn btn-dark add-friend" (click)="addFriend()">Add Friend</button>
         </ul>
     </header>
 

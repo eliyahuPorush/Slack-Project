@@ -34,9 +34,10 @@ header{
 }
 ul{
     display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-around;
-    direction: ltr;
+    flex-direction: row;
 
 
+}
+.add-friend{
+    margin-right: 3%;
 }

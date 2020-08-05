@@ -10,7 +10,7 @@
 
 }
 .row-1{
-    position: absolute;
+    position: fixed;
     bottom: 5%;
    z-index: 1;
     margin-left: 3%;

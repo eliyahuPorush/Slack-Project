@@ -4,12 +4,14 @@ import { Observable } from 'rxjs';
 import { FriendsDataService } from 'src/app/services/friends-data.service';
 import { tap, map } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
+import { ReversePipe } from 'ngx-pipes';
 
 
 @Component({
   selector: 'app-chat-messages',
   templateUrl: './chat-messages.component.html',
-  styleUrls: ['./chat-messages.component.css']
+  styleUrls: ['./chat-messages.component.css'],
+  providers: [ReversePipe]
 })
 export class ChatMessagesComponent implements OnInit {
   messages: Observable<string[]> ;
@@ -17,7 +19,8 @@ export class ChatMessagesComponent implements OnInit {
   constructor(
     private activeRoute: ActivatedRoute,
     private friendSRV: FriendsDataService,
-    private authSRV: AuthService
+    private authSRV: AuthService,
+    
   ) { }
 
   ngOnInit(): void {

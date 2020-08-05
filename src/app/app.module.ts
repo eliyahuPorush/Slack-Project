@@ -15,6 +15,7 @@ import { ChatInputComponent } from './components/dashboard/chat/chat-input/chat-
 import { ChatMessagesComponent } from './components/dashboard/chat/chat-messages/chat-messages.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AddFriendComponent } from './components/add-friend/add-friend.component';
+import {NgPipesModule} from 'ngx-pipes';
 
 // 1. Import the libs you need
 import { AngularFireModule } from '@angular/fire';
@@ -53,7 +54,8 @@ import { FriendImgDesignDirective } from './directives/friend-img-design.directi
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule, // firestore
     AngularFireAuthModule, // auth
-    AngularFireStorageModule // storage
+    AngularFireStorageModule, // storage
+    NgPipesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

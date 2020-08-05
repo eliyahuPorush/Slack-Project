@@ -72,6 +72,9 @@ export class FriendsDataService {
         doc(this.user.email).
         collection("text_messages").doc(id).set({message: text, owner: this.user.email})
 
+
+        //.collection("text_messages")
+//.orderBy("", "desc")
     }
 
 }
