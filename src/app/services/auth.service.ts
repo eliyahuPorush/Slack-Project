@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { User } from '../models/user';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { auth } from 'firebase';
 
 
 interface responced{
@@ -28,9 +30,15 @@ export class AuthService {
   constructor(
     private http: HttpClient, 
     private router: Router,
-    private db: AngularFirestore) { }
+    private db: AngularFirestore,
+    public auth: AngularFireAuth) { }
 
-
+    loginWithGoogle() {
+      this.auth.signInWithPopup(new auth.GoogleAuthProvider());
+    }
+    logoutWithGoogle() {
+      this.auth.signOut();
+    }
   signUp(email: string, password: string){
     let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + 'AIzaSyCFHhL5pC5_ZeVTaq8bQgfCSNcUOjPvNaE' ;
     this.http.post<responced>(url, {

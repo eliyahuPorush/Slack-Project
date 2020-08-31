@@ -65,16 +65,15 @@ export class FriendsDataService {
       this.db.
         collection(this.user.email + "-friends").
         doc(activeFriendEmail).
-        collection("text_messages").doc(id).set({message: text, owner: this.user.email}) ;
+        collection("text_messages").doc(id).set({message: text, owner: this.user.email}) ; // add the text to this user texts
 
       this.db.
         collection(activeFriendEmail + "-friends").
         doc(this.user.email).
-        collection("text_messages").doc(id).set({message: text, owner: this.user.email})
+        collection("text_messages").doc(id).set({message: text, owner: this.user.email}) ; // add the text to the friend's data messages
 
 
-        //.collection("text_messages")
-//.orderBy("", "desc")
     }
+  
 
 }

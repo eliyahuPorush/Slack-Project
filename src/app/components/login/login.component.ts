@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
- import { AngularFirestore } from '@angular/fire/firestore' ;
-import { firestore } from 'firebase';
+
 
 @Component({
   selector: 'app-login',
@@ -15,6 +14,15 @@ export class LoginComponent implements OnInit {
   errorMessage :string ;
 
   constructor(private authSRV: AuthService) { }
+
+  loginWithGoogle() {
+    this.authSRV.loginWithGoogle() ;
+  }
+  logoutWithGoogle() {
+    this.authSRV.logoutWithGoogle() ;
+  }
+
+
 
   ngOnInit(): void {
     
