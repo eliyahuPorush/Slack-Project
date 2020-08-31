@@ -27,8 +27,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     
     this.loginForm = new FormGroup({
-      email: new FormControl('eliyahuporush@gmail.com', [Validators.required, Validators.email]),
-      password: new FormControl('eliyahu6040', [Validators.required, Validators.minLength(6)])
+      email: new FormControl('teacher@gmail.com', [Validators.required, Validators.email]),
+      password: new FormControl('teacher6040', [Validators.required, Validators.minLength(6)])
     })
     this.authSRV.errorFound.subscribe(error => 
       this.errorMessage = error
