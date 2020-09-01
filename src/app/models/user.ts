@@ -8,6 +8,7 @@ export class User {
         public refreshToken: string, 
         public expiresIn: string , 
         public registered?: boolean,
-        public phone?: string
+        public phone?: string,
+        public alies?: string,
          ){}
 }

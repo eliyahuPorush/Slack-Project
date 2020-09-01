@@ -17,7 +17,13 @@ interface responced{
   registered? : boolean ;
 }
 
-
+interface UserUpdate{
+  name: string ;
+  email: string ;
+  imgURL?: string ;
+  phone?: string ;
+  elias?: File ;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -35,18 +41,8 @@ export class AuthService {
 
     loginWithGoogle() {
       this.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(v => {
-          this.isLogedIn = true ;
-          this.user = new User(
-            v.credential['idToken'],
-            v.user.email,
-            v.user.displayName,
-            "",
-            v.user.refreshToken,
-            ""
-            ) ;
-        this.router.navigate([v.user.email , 'dashboard']) ;
-      }
-      );
+         this.loginSuccess(v) ;
+      });
     }
     logout() {
       this.auth.signOut().then(res =>{
@@ -70,34 +66,47 @@ export class AuthService {
     })
   }
   logIn(email: string, password: string){
-    let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + 'AIzaSyCFHhL5pC5_ZeVTaq8bQgfCSNcUOjPvNaE' ;
-    this.http.post<responced>(url, {
-      email: email,
-      password: password,
-      returnSecureToken: true
-    }).subscribe((res: responced) => {
-      if(res.registered){
-        
-        this.isLogedIn = true ;
-        this.user = new User(res.idToken, res.email, "" ,res.localId, res.refreshToken, res.expiresIn, res.registered) ;
-        this.router.navigate([res.email , 'dashboard']) ;
-        
-      } 
-    }, error => {
-      let errorMassege = error.error.error.message ;
+    this.auth.signInWithEmailAndPassword(email, password).then(res => {
+      this.loginSuccess(res) ;
+    }).catch(error => {
+      let errorMassege = error.message ;
       this.errorFound.next(this.handleErrorMessage(errorMassege)) ;
-    })
+    });
   }
-
+  private loginSuccess(res){
+    this.isLogedIn = true ;
+          this.user = new User(
+            '', // idToken missing
+            res.user.email,
+            res.user.displayName,
+            '',
+            res.user.refreshToken,
+            '',
+            true,
+            res.user.phone
+            ) ;
+        this.router.navigate([res.user.email , 'dashboard']) ;
+  }
   private handleErrorMessage(message: string){
     switch(message){
       case 'EMAIL_NOT_FOUND': 
       case 'INVALID_PASSWORD':
+      case 'There is no user record corresponding to this identifier. The user may have been deleted.':
+      case "The password is invalid or the user does not have a password.":
         return 'one of details is incorrect...try again' ;
       default: return 'Unkonwn Error'
     }
 
   }
+  updateProfile(name: string, imgURL: string, email?: string, phone: string = '', elias?: File){
+    let userToUpdate:UserUpdate = {name,email,imgURL,phone,elias} 
+    this.db.firestore.
+    collection(this.user.email + "-details").
+    doc("details").
+    set(userToUpdate);
+
+    this.db.collection(this.user.email + "-friends").doc(this.user.email).set(userToUpdate)
+}
   getUser(){
     return this.user ;
   }

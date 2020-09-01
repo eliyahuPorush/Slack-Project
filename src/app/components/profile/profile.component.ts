@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
 
@@ -17,11 +17,18 @@ export class ProfileComponent implements OnInit {
     this.user = this.authSRV.getUser() ;
     this.profileForm = new FormGroup({
           name: new FormControl(this.user.displayName),
-          email: new FormControl(this.user.email),
-          phone: new FormControl(this.user.phone)
+          email: new FormControl(this.user.email, Validators.email),
+          phone: new FormControl(this.user.phone),
+          alies: new FormControl(this.user.alies)
     })
   }
   onSubmit(){
+    let contols = this.profileForm.controls ;
+    let selectedFile: File ;
+    selectedFile = this.profileForm.controls['alies']['value'] as File ;  
+    // const uploadFile = new FormData() ;
+    // uploadFile.append('alies', selectedFile, selectedFile.name) ;
+    this.authSRV.updateProfile(contols.name.value, "", contols.email.value, contols.phone.value, selectedFile)
     console.log(this.profileForm.controls);
     
 

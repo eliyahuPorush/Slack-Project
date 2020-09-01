@@ -9,11 +9,13 @@ import { AddFriendComponent } from './components/add-friend/add-friend.component
 import { ChatComponent } from './components/dashboard/chat/chat.component';
 import { DefaultComponent } from './components/dashboard/default/default.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { CreateAccountComponent } from './components/create-account/create-account.component';
 
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path: ':user_email/dashboard' , component: DashboardComponent, canActivate: [PathGuardGuard], children: [
+  { path: 'login', component: LoginComponent},
+  { path: 'createAccount', component: CreateAccountComponent},
+  { path: ':user_email/dashboard' , component: DashboardComponent, canActivate: [PathGuardGuard], children: [
       { path: 'chat', canActivateChild:[PathGuardGuard],component: ChatComponent},
       { path: 'add_friend', component: AddFriendComponent},
       { path: "default", component: DefaultComponent},

@@ -1,6 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UsersDataService } from 'src/app/services/users-data.service';
 import { FriendsDataService } from 'src/app/services/friends-data.service';
 import { Observable } from 'rxjs';
 
@@ -14,7 +13,7 @@ export class UsersListComponent implements OnInit {
  type = "list" ;
  
 
-  constructor(private router: Router, private activeRoute: ActivatedRoute, private usersData: UsersDataService, private friendsData: FriendsDataService) { }
+  constructor(private router: Router, private activeRoute: ActivatedRoute, private friendsData: FriendsDataService) { }
   ngOnInit(): void {
     
      this.friends = this.friendsData.getFriendsFromServer()

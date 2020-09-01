@@ -27,6 +27,7 @@ import { DefaultComponent } from './components/dashboard/default/default.compone
 import { NamePipe } from './pipes/name.pipe';
 import { FriendImgDesignDirective } from './directives/friend-img-design.directive';
 import { ProfileComponent } from './components/profile/profile.component';
+import { CreateAccountComponent } from './components/create-account/create-account.component';
 
 
 
@@ -46,7 +47,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     DefaultComponent,
     NamePipe,
     FriendImgDesignDirective,
-    ProfileComponent
+    ProfileComponent,
+    CreateAccountComponent
   ],
   imports: [
     BrowserModule,

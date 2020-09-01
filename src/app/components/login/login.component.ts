@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -9,11 +10,13 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  logInText = 'Log In';
   loginForm: FormGroup ;
   errorMessage :string ;
 
-  constructor(private authSRV: AuthService) { }
+  constructor(
+    private authSRV: AuthService,
+    private router: Router    
+    ) { }
 
   loginWithGoogle() {
     this.authSRV.loginWithGoogle() ;
@@ -36,10 +39,12 @@ export class LoginComponent implements OnInit {
 
   onSubmit(){
     let params = [this.loginForm.controls.email.value, this.loginForm.controls.password.value] // email & password
-    if(this.logInText == 'Sign Up') this.authSRV.signUp(params[0], params[1]) ; // sign up method
-    else if(this.logInText == 'Log In') this.authSRV.logIn(params[0], params[1]) ; // log in method
+    // if(this.logInText == 'Sign Up') this.authSRV.signUp(params[0], params[1]) ; // sign up method
+    // else if(this.logInText == 'Log In') this.authSRV.logIn(params[0], params[1]) ; // log in method
+    this.authSRV.logIn(params[0], params[1])
   }
-  onSignInClicked(){
-    this.logInText = this.logInText == 'Sign Up'? 'Log In': 'Sign Up' ;
+  onCreateAccount(){
+    this.router.navigate(['/createAccount'])
   }
+
 }

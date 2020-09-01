@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { UsersDataService } from 'src/app/services/users-data.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
@@ -14,7 +13,6 @@ export class SelfDetailsComponent implements OnInit {
   user: User ;
   details: FormGroup ;
   constructor(
-    private data: UsersDataService,
     private router: Router,
     private authSRV: AuthService
     ) { }
@@ -29,7 +27,7 @@ export class SelfDetailsComponent implements OnInit {
   }
   onSubmit(){
     let details = this.details.controls ;
-    this.data.updateProfile(details['name'].value, details['imageURL'].value) ;
+    this.authSRV.updateProfile(details['name'].value, details['imageURL'].value) ;
     this.router.navigate([this.user.email, 'dashboard'])
   }
 }
