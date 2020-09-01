@@ -34,10 +34,25 @@ export class AuthService {
     public auth: AngularFireAuth) { }
 
     loginWithGoogle() {
-      this.auth.signInWithPopup(new auth.GoogleAuthProvider());
+      this.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(v => {
+          this.isLogedIn = true ;
+          this.user = new User(
+            v.credential['idToken'],
+            v.user.email,
+            v.user.displayName,
+            "",
+            v.user.refreshToken,
+            ""
+            ) ;
+        this.router.navigate([v.user.email , 'dashboard']) ;
+      }
+      );
     }
-    logoutWithGoogle() {
-      this.auth.signOut();
+    logout() {
+      this.auth.signOut().then(res =>{
+        this.router.navigate(['login']) ;
+      });
+      
     }
   signUp(email: string, password: string){
     let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + 'AIzaSyCFHhL5pC5_ZeVTaq8bQgfCSNcUOjPvNaE' ;
@@ -46,7 +61,7 @@ export class AuthService {
       password: password,
       returnSecureToken: true
     }).subscribe((res: responced) => {
-      this.isLogedIn = true ;
+        this.isLogedIn = true ;
         this.user = new User(res.idToken, res.email, "" ,res.localId, res.refreshToken, res.expiresIn) ;
         // create a new collection of this user
         this.db.firestore.collection(email + "-friends").doc(email).set({email:email, name: `${email}(my)`});

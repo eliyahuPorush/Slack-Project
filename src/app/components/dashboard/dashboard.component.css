@@ -6,13 +6,18 @@
 
 
 }
-/* :host app-chat{
-    width: 550px;
-} */
+.header{
+    background-color: slategray ;
+}
+.nav-link{
+    cursor: pointer;
 
-
+}
+.user-name{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+}
 span{
-    color: rgb(129, 156, 187)
+    color:white;
 }
 /* :host app-users-list{
     background-color: #2c1b41;
@@ -37,7 +42,4 @@ ul{
     flex-direction: row;
 
 
-}
-.add-friend{
-    margin-right: 3%;
 }

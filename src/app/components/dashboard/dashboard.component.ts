@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  user ;
+  user: User ;
   userName: string ;
   listLoded: boolean = false ;
   constructor(
@@ -31,6 +31,12 @@ export class DashboardComponent implements OnInit {
   }
   addFriend(){
     this.router.navigate(['add_friend'], {relativeTo: this.activeRoute})
+  }
+  logout() {
+    this.authSRV.logout() ;
+  }
+  profile(){
+    this.router.navigate([ this.user.email, 'dashboard','profile'])
   }
 
 }

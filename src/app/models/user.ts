@@ -7,5 +7,7 @@ export class User {
         public localId: string, 
         public refreshToken: string, 
         public expiresIn: string , 
-        public registered?: boolean ){}
+        public registered?: boolean,
+        public phone?: string
+         ){}
 }

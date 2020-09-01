@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms' ;
+import { ReactiveFormsModule, FormsModule } from '@angular/forms' ;
 import { HttpClientModule} from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
@@ -26,6 +26,7 @@ import { environment } from 'src/environments/environment.prod';
 import { DefaultComponent } from './components/dashboard/default/default.component';
 import { NamePipe } from './pipes/name.pipe';
 import { FriendImgDesignDirective } from './directives/friend-img-design.directive';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 
@@ -44,7 +45,8 @@ import { FriendImgDesignDirective } from './directives/friend-img-design.directi
     AddFriendComponent,
     DefaultComponent,
     NamePipe,
-    FriendImgDesignDirective
+    FriendImgDesignDirective,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +57,8 @@ import { FriendImgDesignDirective } from './directives/friend-img-design.directi
     AngularFirestoreModule, // firestore
     AngularFireAuthModule, // auth
     AngularFireStorageModule, // storage
-    NgPipesModule
+    NgPipesModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
