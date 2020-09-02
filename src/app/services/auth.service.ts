@@ -2,20 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase';
 
 
-interface responced{
-  idToken: string ;
-  email: string ;
-  refreshToken: string ;
-  expiresIn: string ;
-  localId: string ;
-  registered? : boolean ;
-}
 
 interface UserUpdate{
   name: string ;
@@ -40,9 +32,11 @@ export class AuthService {
     public auth: AngularFireAuth) { }
 
     loginWithGoogle() {
-      this.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(v => {
+      this.auth.signInWithPopup(new auth.GoogleAuthProvider())
+      .then(v => {
          this.loginSuccess(v) ;
-      });
+      })
+      .then(() => this.router.navigate([this.user.email , 'dashboard']) )
     }
     logout() {
       this.auth.signOut().then(res =>{
@@ -50,31 +44,34 @@ export class AuthService {
       });
       
     }
-  signUp(email: string, password: string){
-    let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + 'AIzaSyCFHhL5pC5_ZeVTaq8bQgfCSNcUOjPvNaE' ;
-    this.http.post<responced>(url, {
-      email: email,
-      password: password,
-      returnSecureToken: true
-    }).subscribe((res: responced) => {
-        this.isLogedIn = true ;
-        this.user = new User(res.idToken, res.email, "" ,res.localId, res.refreshToken, res.expiresIn) ;
-        // create a new collection of this user
-        this.db.firestore.collection(email + "-friends").doc(email).set({email:email, name: `${email}(my)`});
-        this.router.navigate([res.email, 'details']) ;
-      
-    })
+  signUp(name:string, email: string, password: string, phone?: string, alies?:File){
+    this.auth.createUserWithEmailAndPassword(email, password)
+      .then(res => {
+        this.loginSuccess(res) ;
+        
+      })
+        
+      .then(v => {
+        this.db.firestore.collection(email + "-friends").doc(email).set({email:email, name: name+ "(me)"})
+        this.db.firestore.collection(email + "-details").doc('details').set({email:email, name: name, phone: phone})
+      })
+      .then(() => this.router.navigate([this.user.email , 'dashboard']) )
+      .catch(error => {
+        console.log(error);
+      })
   }
   logIn(email: string, password: string){
     this.auth.signInWithEmailAndPassword(email, password).then(res => {
       this.loginSuccess(res) ;
-    }).catch(error => {
+    })
+    .then(() => this.router.navigate([this.user.email , 'dashboard']) )
+    .catch(error => {
       let errorMassege = error.message ;
       this.errorFound.next(this.handleErrorMessage(errorMassege)) ;
     });
   }
   private loginSuccess(res){
-    this.isLogedIn = true ;
+          this.isLogedIn = true ;
           this.user = new User(
             '', // idToken missing
             res.user.email,
@@ -85,7 +82,6 @@ export class AuthService {
             true,
             res.user.phone
             ) ;
-        this.router.navigate([res.user.email , 'dashboard']) ;
   }
   private handleErrorMessage(message: string){
     switch(message){
@@ -99,7 +95,7 @@ export class AuthService {
 
   }
   updateProfile(name: string, imgURL: string, email?: string, phone: string = '', elias?: File){
-    let userToUpdate:UserUpdate = {name,email,imgURL,phone,elias} 
+    let userToUpdate:UserUpdate = {name: name,email: email,imgURL: imgURL,phone: phone,elias: elias} 
     this.db.firestore.
     collection(this.user.email + "-details").
     doc("details").

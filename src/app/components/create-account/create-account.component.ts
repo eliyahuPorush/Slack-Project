@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-create-account',
@@ -8,7 +9,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class CreateAccountComponent implements OnInit {
   createAccountForm: FormGroup ;
-  constructor() { }
+  errorMessage: string ;
+  constructor(
+    private authSRV: AuthService
+  ) { }
 
   ngOnInit(): void {
     this.createAccountForm = new FormGroup({
@@ -21,14 +25,18 @@ export class CreateAccountComponent implements OnInit {
     })
   }
   onSubmit(){
-    let form = this.createAccountForm.controls ;
-    if( (form.password1.value == form.password2.value) && form.valid){
-      console.log('form valid!');
+    let form = this.createAccountForm ;
+    if( (form.controls.password1.value == form.controls.password2.value) && form.valid){
+      this.authSRV.signUp(
+        form.controls.name.value,
+        form.controls.email.value,
+        form.controls.password1.value,
+        form.controls.phone.value,
+        form.controls.alies.value
+      )
       
     }
-    else console.log('form not valid')    
-    console.log(form.password2.value);
-    
+    else this.errorMessage = 'your inputs are invalid. try again'  
   }
 
 }
