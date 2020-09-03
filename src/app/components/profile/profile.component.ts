@@ -10,7 +10,7 @@ import { User } from 'src/app/models/user';
 })
 export class ProfileComponent implements OnInit {
   profileForm: FormGroup ;
-  user: User ;
+  user: firebase.User ;
   constructor(private authSRV: AuthService) { }
 
   ngOnInit(): void {
@@ -18,8 +18,8 @@ export class ProfileComponent implements OnInit {
     this.profileForm = new FormGroup({
           name: new FormControl(this.user.displayName),
           email: new FormControl(this.user.email, Validators.email),
-          phone: new FormControl(this.user.phone),
-          alies: new FormControl(this.user.alies)
+          phone: new FormControl(this.user.phoneNumber),
+          alies: new FormControl(null)
     })
   }
   onSubmit(){

@@ -10,7 +10,7 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./self-details.component.css']
 })
 export class SelfDetailsComponent implements OnInit {
-  user: User ;
+  user: firebase.User ;
   details: FormGroup ;
   constructor(
     private router: Router,

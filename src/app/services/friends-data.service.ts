@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
   providedIn: 'root'
 })
 export class FriendsDataService {
-  user:User = this.authSRV.getUser() ;
+  user: firebase.User = this.authSRV.getUser() ;
   constructor(
     private authSRV: AuthService,
     private db: AngularFirestore,

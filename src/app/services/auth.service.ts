@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { User } from '../models/user';
 import { Subject } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase';
+import * as firebase from 'firebase';
 
 
 
@@ -21,15 +21,15 @@ interface UserUpdate{
   providedIn: 'root'
 })
 export class AuthService {
-
-  user:User ;
+  user:firebase.User ;
   isLogedIn = false ;
   errorFound = new Subject<string>() ;
   constructor(
     private http: HttpClient, 
     private router: Router,
     private db: AngularFirestore,
-    public auth: AngularFireAuth) { }
+    public auth: AngularFireAuth
+    ) {}
 
     loginWithGoogle() {
       this.auth.signInWithPopup(new auth.GoogleAuthProvider())
@@ -40,6 +40,7 @@ export class AuthService {
     }
     logout() {
       this.auth.signOut().then(res =>{
+        this.user.delete() ;
         this.router.navigate(['login']) ;
       });
       
@@ -47,15 +48,16 @@ export class AuthService {
   signUp(name:string, email: string, password: string, phone?: string, alies?:File){
     this.auth.createUserWithEmailAndPassword(email, password)
       .then(res => {
-        this.loginSuccess(res) ;
-        
+        this.isLogedIn = true ;
+        firebase.auth().currentUser.updateEmail(email) ;   //  need to fix all function
+        firebase.auth().currentUser.updateProfile({displayName: name}) ;
+        this.router.navigate([email , 'dashboard']) 
+    
       })
-        
       .then(v => {
         this.db.firestore.collection(email + "-friends").doc(email).set({email:email, name: name+ "(me)"})
         this.db.firestore.collection(email + "-details").doc('details').set({email:email, name: name, phone: phone})
       })
-      .then(() => this.router.navigate([this.user.email , 'dashboard']) )
       .catch(error => {
         console.log(error);
       })
@@ -63,6 +65,8 @@ export class AuthService {
   logIn(email: string, password: string){
     this.auth.signInWithEmailAndPassword(email, password).then(res => {
       this.loginSuccess(res) ;
+      console.log('res',res);
+      
     })
     .then(() => this.router.navigate([this.user.email , 'dashboard']) )
     .catch(error => {
@@ -72,16 +76,9 @@ export class AuthService {
   }
   private loginSuccess(res){
           this.isLogedIn = true ;
-          this.user = new User(
-            '', // idToken missing
-            res.user.email,
-            res.user.displayName,
-            '',
-            res.user.refreshToken,
-            '',
-            true,
-            res.user.phone
-            ) ;
+          this.user = firebase.auth().currentUser ;
+                                             /////                   need to fix
+                  
   }
   private handleErrorMessage(message: string){
     switch(message){

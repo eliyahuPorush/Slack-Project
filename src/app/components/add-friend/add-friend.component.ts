@@ -13,7 +13,7 @@ import { User } from 'src/app/models/user';
 })
 export class AddFriendComponent implements OnInit {
   addFriendForm: FormGroup ;
-  user: User ;
+  user: firebase.User ;
   constructor( 
     private friendDataSRV: FriendsDataService, 
     private router: Router,

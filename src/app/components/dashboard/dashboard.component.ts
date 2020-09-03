@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  user: User ;
+  user: firebase.User ;
   userName: string ;
   listLoded: boolean = false ;
   constructor(
