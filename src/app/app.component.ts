@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { FriendsDataService } from './services/friends-data.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +9,13 @@ import { FriendsDataService } from './services/friends-data.service';
 })
 export class AppComponent implements OnInit{
 
-  constructor(private DB: AngularFirestore){}
+  constructor(
+    private authSRV: AuthService
+  ){}
   title = 'Slack-Project';
   obs: Observable<any> ;
   ngOnInit(): void {  
-
+    
   }
 
 }

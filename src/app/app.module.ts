@@ -10,7 +10,6 @@ import { LoginHeaderComponent } from './components/login/login-header/login-head
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UsersListComponent } from './components/dashboard/users-list/users-list.component';
 import { ChatComponent } from './components/dashboard/chat/chat.component';
-import { SelfDetailsComponent } from './components/self-details/self-details.component';
 import { ChatInputComponent } from './components/dashboard/chat/chat-input/chat-input.component';
 import { ChatMessagesComponent } from './components/dashboard/chat/chat-messages/chat-messages.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -39,7 +38,6 @@ import { CreateAccountComponent } from './components/create-account/create-accou
     DashboardComponent,
     UsersListComponent,
     ChatComponent,
-    SelfDetailsComponent,
     ChatInputComponent,
     ChatMessagesComponent,
     PageNotFoundComponent,

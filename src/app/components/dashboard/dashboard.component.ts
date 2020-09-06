@@ -16,18 +16,18 @@ export class DashboardComponent implements OnInit {
   listLoded: boolean = false ;
   constructor(
     private authSRV: AuthService,
-    private db: AngularFirestore,
     private router: Router,
     private activeRoute: ActivatedRoute
     ) { }
 
   ngOnInit(): void {
-    this.user = this.authSRV.getUser() ;
-    this.db.collection(this.user.email + "-details").valueChanges().subscribe(
-      data => {
-        this.userName = data[0]["name"] ;
+    this.authSRV.isLogedIn.subscribe(bool => {
+      if(bool){
+        this.user = this.authSRV.getUser() ;
+        this.userName = this.user.displayName ;
         this.listLoded = true ;
-      });
+      }
+    })
   }
   addFriend(){
     this.router.navigate(['add_friend'], {relativeTo: this.activeRoute})

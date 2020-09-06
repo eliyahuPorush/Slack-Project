@@ -13,7 +13,12 @@ export class UsersListComponent implements OnInit {
  type = "list" ;
  
 
-  constructor(private router: Router, private activeRoute: ActivatedRoute, private friendsData: FriendsDataService) { }
+  constructor(
+    private router: Router, 
+    private activeRoute: ActivatedRoute, 
+    private friendsData: FriendsDataService
+    ) {}
+
   ngOnInit(): void {
     
      this.friends = this.friendsData.getFriendsFromServer()

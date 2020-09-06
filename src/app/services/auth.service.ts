@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase';
@@ -22,10 +22,10 @@ interface UserUpdate{
 })
 export class AuthService {
   user:firebase.User ;
-  isLogedIn = false ;
+  isLogedIn = new BehaviorSubject<boolean>(false) ;
   errorFound = new Subject<string>() ;
+
   constructor(
-    private http: HttpClient, 
     private router: Router,
     private db: AngularFirestore,
     public auth: AngularFireAuth
@@ -39,25 +39,24 @@ export class AuthService {
       .then(() => this.router.navigate([this.user.email , 'dashboard']) )
     }
     logout() {
-      this.auth.signOut().then(res =>{
-        this.user.delete() ;
+        this.auth.signOut().then(res =>{
+        this.user = undefined ;
         this.router.navigate(['login']) ;
+        this.isLogedIn.next(false) ;
       });
-      
     }
   signUp(name:string, email: string, password: string, phone?: string, alies?:File){
     this.auth.createUserWithEmailAndPassword(email, password)
       .then(res => {
-        this.isLogedIn = true ;
-        firebase.auth().currentUser.updateEmail(email) ;   //  need to fix all function
+        firebase.auth().currentUser.updateEmail(email) ;   //  need to fix all function -- update phone missing
         firebase.auth().currentUser.updateProfile({displayName: name}) ;
-        this.router.navigate([email , 'dashboard']) 
-    
       })
       .then(v => {
         this.db.firestore.collection(email + "-friends").doc(email).set({email:email, name: name+ "(me)"})
         this.db.firestore.collection(email + "-details").doc('details').set({email:email, name: name, phone: phone})
       })
+      .then(() => this.logIn(email, password))
+      .then(() => this.isLogedIn.next(true))
       .catch(error => {
         console.log(error);
       })
@@ -65,20 +64,17 @@ export class AuthService {
   logIn(email: string, password: string){
     this.auth.signInWithEmailAndPassword(email, password).then(res => {
       this.loginSuccess(res) ;
-      console.log('res',res);
-      
     })
     .then(() => this.router.navigate([this.user.email , 'dashboard']) )
+    .then(() => this.isLogedIn.next(true))
     .catch(error => {
+      console.log('error-- ', error);
       let errorMassege = error.message ;
       this.errorFound.next(this.handleErrorMessage(errorMassege)) ;
     });
   }
   private loginSuccess(res){
-          this.isLogedIn = true ;
-          this.user = firebase.auth().currentUser ;
-                                             /////                   need to fix
-                  
+    this.user = firebase.auth().currentUser ;
   }
   private handleErrorMessage(message: string){
     switch(message){
@@ -91,7 +87,7 @@ export class AuthService {
     }
 
   }
-  updateProfile(name: string, imgURL: string, email?: string, phone: string = '', elias?: File){
+  updateProfile(name: string, imgURL: string, email?: string, phone: string = '', elias?: File){   // no update is happening !
     let userToUpdate:UserUpdate = {name: name,email: email,imgURL: imgURL,phone: phone,elias: elias} 
     this.db.firestore.
     collection(this.user.email + "-details").
