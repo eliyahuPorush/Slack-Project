@@ -1,6 +1,4 @@
-.btn-lg{
-    width: 20%
-}
+
 .container{
     padding: 2% ;
     margin-top: 3% ;
@@ -8,10 +6,6 @@
     border: #888444 2px solid ;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
 }
-.log:hover{
-    box-shadow: 4px 5px lightblue;
-    cursor: pointer;
-}
-.label{
-    color: #760076
-}
+
+
+

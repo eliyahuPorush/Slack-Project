@@ -1,31 +1,20 @@
-<div class="container card">
-    <div class="row">
-        <div class="col-md-12 card-body">
-            <div class="row card-header bg-dark text-white">
-                Welcome To Slack
-            </div>
-            <br>
-              <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
-            <div class="label row form-group card-title">
-                <label for="email">Email</label>
-                <input type="email" formControlName="email" class="form-control">
-            </div>
-            <div class="label row form-group card-title">
-                <label for="email">Password</label>
-                <input type="text" formControlName="password" class="form-control">
-            </div>
-            <div class="row form-group card-title">
-                <button [disabled]="loginForm.invalid" class="btn btn-info btn-lg card-title log" type="submit">Login</button> 
-            </div>
-            <div class="row form-group card-title">
-                <button class="btn btn-danger btn-lg card-title log" type="button" (click)="loginWithGoogle()" >Login With Google</button>
-            </div>
-            <div class="row">
-            <small class="text-black-50">Dont have an account? <a class="btn btn-outline-secondary btn-sm text-black-50" (click)="onCreateAccount()">create one</a></small>
-            </div>
-            <div *ngIf="errorMessage" class="row alert alert-danger">{{errorMessage}}</div>
-        </form>
+<div class="container">
+    <div class="col-md-6">
+            <form class="form-signin" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign in</h1>
+        <div class="social-login d-flex justify-content-between">
+            <button class="btn facebook-btn btn-primary social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>
+            <button (click)="loginWithGoogle()" class="btn google-btn btn-danger social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign in with Google</span> </button>
         </div>
-      
+        <p style="text-align:center"> OR  </p>
+        <input type="email" class="form-control" placeholder="Email address" formControlName="email">
+        <input type="password" class="form-control" placeholder="Password" formControlName="password">
+        <br>
+        <button  [disabled]="loginForm.invalid" class="btn btn-success btn-block" type="submit"><i class="fas fa-sign-in-alt"></i> Sign in</button>
+        <hr>
+        <!-- <p>Don't have an account!</p>  -->
+        <button  (click)="onCreateAccount()" class="btn btn-primary btn-block" type="button" id="btn-signup"><i class="fas fa-user-plus"></i> Sign up New Account</button>
+        <div *ngIf="errorMessage" class="row alert alert-danger">{{errorMessage}}</div>
+        </form>
     </div>
 </div>
