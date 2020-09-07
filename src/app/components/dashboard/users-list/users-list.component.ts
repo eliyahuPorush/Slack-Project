@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FriendsDataService } from 'src/app/services/friends-data.service';
 import { Observable } from 'rxjs';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-users-list',
@@ -11,6 +12,7 @@ import { Observable } from 'rxjs';
 export class UsersListComponent implements OnInit {
  friends:Observable<any> ;
  type = "list" ;
+ @Output() isLoded: EventEmitter<boolean> = new EventEmitter<boolean>() ;
  
 
   constructor(
@@ -21,7 +23,8 @@ export class UsersListComponent implements OnInit {
 
   ngOnInit(): void {
     
-     this.friends = this.friendsData.getFriendsFromServer()
+     this.friends = this.friendsData.getFriendsFromServer() ;
+     this.friends.subscribe(() => this.isLoded.emit(true))
   }
  
   friendSelected(friendEmail: string){

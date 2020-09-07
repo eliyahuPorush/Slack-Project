@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { User } from 'src/app/models/user';
-import { Friend } from 'src/app/models/friend.model';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -25,7 +22,7 @@ export class DashboardComponent implements OnInit {
       if(bool){
         this.user = this.authSRV.getUser() ;
         this.userName = this.user.displayName ;
-        this.listLoded = true ;
+        // this.listLoded = true ;
       }
     })
   }

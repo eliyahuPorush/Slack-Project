@@ -20,7 +20,7 @@
 
 
     <div class="dash">
-        <app-users-list></app-users-list>
+        <app-users-list (isLoded)="listLoded = true"></app-users-list>
         <router-outlet></router-outlet>
     </div>
 </div>
