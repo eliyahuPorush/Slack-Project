@@ -18,19 +18,11 @@ export class ProfileComponent implements OnInit {
     this.profileForm = new FormGroup({
           name: new FormControl(this.user.displayName),
           email: new FormControl(this.user.email, Validators.email),
-          phone: new FormControl(this.user.phoneNumber),
-          alies: new FormControl(null)
+          alies: new FormControl(this.user.photoURL)
     })
   }
   onSubmit(){
     let contols = this.profileForm.controls ;
-    let selectedFile: File ;
-    selectedFile = this.profileForm.controls['alies']['value'] as File ;  
-    // const uploadFile = new FormData() ;
-    // uploadFile.append('alies', selectedFile, selectedFile.name) ;
-    this.authSRV.updateProfile(contols.name.value, "", contols.email.value, contols.phone.value, selectedFile)
-    console.log(this.profileForm.controls);
-    
-
+    this.authSRV.updateProfile(contols.name.value, contols.alies.value, contols.email.value)
   }
 }

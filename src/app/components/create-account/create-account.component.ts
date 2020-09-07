@@ -20,7 +20,6 @@ export class CreateAccountComponent implements OnInit {
       email: new FormControl(null, [Validators.email,Validators.required]),
       password1: new FormControl(null, [Validators.minLength(8),Validators.maxLength(15), Validators.required]),
       password2: new FormControl(null, [Validators.minLength(8),Validators.maxLength(15), Validators.required]),
-      phone: new FormControl(null, Validators.minLength(10)),
       alies: new FormControl(null)
     })
   }
@@ -31,7 +30,6 @@ export class CreateAccountComponent implements OnInit {
         form.controls.name.value,
         form.controls.email.value,
         form.controls.password1.value,
-        form.controls.phone.value,
         form.controls.alies.value
       )
       

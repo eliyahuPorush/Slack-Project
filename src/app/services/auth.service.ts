@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase';
 import * as firebase from 'firebase';
+import { LoginComponent } from '../components/login/login.component';
 
 
 
@@ -13,7 +13,6 @@ interface UserUpdate{
   name: string ;
   email: string ;
   imgURL?: string ;
-  phone?: string ;
   elias?: File ;
 }
 
@@ -45,15 +44,10 @@ export class AuthService {
         this.isLogedIn.next(false) ;
       });
     }
-  signUp(name:string, email: string, password: string, phone?: string, alies?:File){
+  signUp(name:string, email: string, password: string, alies: string){
     this.auth.createUserWithEmailAndPassword(email, password)
       .then(res => {
-        firebase.auth().currentUser.updateEmail(email) ;   //  need to fix all function -- update phone missing
-        firebase.auth().currentUser.updateProfile({displayName: name}) ;
-      })
-      .then(v => {
-        this.db.firestore.collection(email + "-friends").doc(email).set({email:email, name: name+ "(me)"})
-        this.db.firestore.collection(email + "-details").doc('details').set({email:email, name: name, phone: phone})
+          this.updateProfile(name, alies, email) ;
       })
       .then(() => this.logIn(email, password))
       .then(() => this.isLogedIn.next(true))
@@ -75,6 +69,8 @@ export class AuthService {
   }
   private loginSuccess(res){
     this.user = firebase.auth().currentUser ;
+    console.log(this.user);
+    
   }
   private handleErrorMessage(message: string){
     switch(message){
@@ -87,14 +83,12 @@ export class AuthService {
     }
 
   }
-  updateProfile(name: string, imgURL: string, email?: string, phone: string = '', elias?: File){   // no update is happening !
-    let userToUpdate:UserUpdate = {name: name,email: email,imgURL: imgURL,phone: phone,elias: elias} 
-    this.db.firestore.
-    collection(this.user.email + "-details").
-    doc("details").
-    set(userToUpdate);
-
-    this.db.collection(this.user.email + "-friends").doc(this.user.email).set(userToUpdate)
+  updateProfile(name: string, imgURL: string, email: string) {  
+    firebase.auth().currentUser.updateEmail(email) ;
+    firebase.auth().currentUser.updateProfile({
+      displayName: name,
+      photoURL: imgURL
+    }) ;
 }
   getUser(){
     return this.user ;

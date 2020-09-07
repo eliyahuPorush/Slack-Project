@@ -18,7 +18,6 @@ export class FriendsDataService {
      ) {  }
 
   getFriendsFromServer(){
-
       return this.db.collection(this.authSRV.getUser().email + '-friends').valueChanges(); 
 }
 
@@ -37,8 +36,7 @@ export class FriendsDataService {
         this.db.collection(friend.email + "-details").doc("details").valueChanges().subscribe(
         details => {
           imgURL = details ? details["imgURL"]: "";
-          console.log("in " +imgURL);
-          this.db.collection(this.authSRV.getUser().email + '-friends').doc(friend.email).set({name, email, imgURL}) ;
+          this.db.firestore.collection(this.authSRV.getUser().email + '-friends').doc(friend.email).set({name, email, imgURL}) ;
         })
   }
   getFriendMessages(){

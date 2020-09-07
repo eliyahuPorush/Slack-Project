@@ -14,8 +14,10 @@
                 <label for="email">Password</label>
                 <input type="text" formControlName="password" class="form-control">
             </div>
-            <div class="row">
+            <div class="row form-group card-title">
                 <button [disabled]="loginForm.invalid" class="btn btn-info btn-lg card-title log" type="submit">Login</button> 
+            </div>
+            <div class="row form-group card-title">
                 <button class="btn btn-danger btn-lg card-title log" type="button" (click)="loginWithGoogle()" >Login With Google</button>
             </div>
             <div class="row">
