@@ -25,12 +25,13 @@ export class CreateAccountComponent implements OnInit {
   }
   onSubmit(){
     let form = this.createAccountForm ;
+    let image = form.controls.alies.value == null ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRB1SJI2ncD_F_122VV6wxuQadDLU3sLl8EYw&usqp=CAU': form.controls.alies.value ;
     if( (form.controls.password1.value == form.controls.password2.value) && form.valid){
       this.authSRV.signUp(
         form.controls.name.value,
         form.controls.email.value,
         form.controls.password1.value,
-        form.controls.alies.value
+        image
       )
       
     }
