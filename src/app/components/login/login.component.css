@@ -1,17 +1,20 @@
-.btn-lg{
-    width: 20%
-}
+
 .container{
     padding: 2% ;
     margin-top: 3% ;
     box-shadow: 5px 10px #888888;
     border: #888444 2px solid ;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+    width: 40vw;
+    
 }
-.log:hover{
-    box-shadow: 4px 5px lightblue;
-    cursor: pointer;
+.google-btn{
+    background-color: rgb(219,68,55) ;
 }
-.label{
-    color: #760076
+
+.facebook-btn{
+    background-color: rgb(66,103,178)
+}
+.google-btn:hover, .facebook-btn:hover{
+    color: white;
 }

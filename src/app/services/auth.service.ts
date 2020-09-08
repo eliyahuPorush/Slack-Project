@@ -1,20 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject, BehaviorSubject } from 'rxjs';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
+
+import { Subject, BehaviorSubject } from 'rxjs';
 import { auth } from 'firebase';
 import * as firebase from 'firebase';
-import { LoginComponent } from '../components/login/login.component';
 
-
-
-interface UserUpdate{
-  name: string ;
-  email: string ;
-  imgURL?: string ;
-  elias?: File ;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +17,6 @@ export class AuthService {
 
   constructor(
     private router: Router,
-    private db: AngularFirestore,
     public auth: AngularFireAuth
     ) {}
 
@@ -53,6 +43,8 @@ export class AuthService {
       .then(() => this.isLogedIn.next(true))
       .catch(error => {
         console.log(error);
+      this.errorFound.next(this.handleErrorMessage(error.message)) ;
+
       })
   }
   logIn(email: string, password: string){
@@ -62,15 +54,12 @@ export class AuthService {
     .then(() => this.router.navigate([this.user.email , 'dashboard']) )
     .then(() => this.isLogedIn.next(true))
     .catch(error => {
-      console.log('error-- ', error);
       let errorMassege = error.message ;
       this.errorFound.next(this.handleErrorMessage(errorMassege)) ;
     });
   }
   private loginSuccess(res){
     this.user = firebase.auth().currentUser ;
-    console.log(this.user);
-    
   }
   private handleErrorMessage(message: string){
     switch(message){
