@@ -17,11 +17,14 @@ export class LoginComponent implements OnInit {
     private authSRV: AuthService,
     private router: Router    
     ) { }
-
-  loginWithGoogle() {
-    this.authSRV.loginWithGoogle() ;
-  }
-
+    
+    loginWithGoogle() {
+      this.authSRV.loginWithGoogle() ;
+    }
+    loginWithFacebook(){
+      this.authSRV.loginWithFacebook() ;
+    }
+    
 
 
 

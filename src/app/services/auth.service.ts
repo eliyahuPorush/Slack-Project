@@ -26,6 +26,15 @@ export class AuthService {
          this.loginSuccess(v) ;
       })
       .then(() => this.router.navigate([this.user.email , 'dashboard']) )
+      .catch(er => console.log(er)
+      )
+    }
+    loginWithFacebook(){
+      this.auth.signInWithPopup(new auth.FacebookAuthProvider())
+      .then(v => {
+         this.loginSuccess(v) ;
+      })
+      .then(() => this.router.navigate([this.user.email , 'dashboard']) )
     }
     logout() {
         this.auth.signOut().then(res =>{
@@ -60,6 +69,7 @@ export class AuthService {
   }
   private loginSuccess(res){
     this.user = firebase.auth().currentUser ;
+    return
   }
   private handleErrorMessage(message: string){
     switch(message){
