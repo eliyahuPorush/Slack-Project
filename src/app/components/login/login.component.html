@@ -2,7 +2,7 @@
     <div class="col">
             <form class="form-signin" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
         <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign in</h1>
-        <div class="social-login d-flex justify-content-between">
+        <div class="social-login d-flex flex-wrap justify-content-between">
             <button class="btn facebook-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>
             <button (click)="loginWithGoogle()" class="btn google-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign in with Google</span> </button>
         </div>
