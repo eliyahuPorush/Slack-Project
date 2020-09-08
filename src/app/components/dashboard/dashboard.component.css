@@ -19,9 +19,6 @@
 span{
     color:white;
 }
-/* :host app-users-list{
-    background-color: #2c1b41;
-} */
 header{
     border-bottom: 2px solid black;
     position: relative;
@@ -42,4 +39,9 @@ ul{
     flex-direction: row;
 
 
+}
+.image-circle{
+    width: 70px;
+    height: 70px;
+    border-radius: 50% ;
 }

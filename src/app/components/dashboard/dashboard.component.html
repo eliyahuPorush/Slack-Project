@@ -14,7 +14,13 @@
             <a class="nav-link btn-outline-dark btn-sm text-light" (click)="profile()">My Profile</a>
         </li>
         </ul>
-            <h3 class="user-name" style="text-align: center"><b>Hello </b><span>{{userName | name}}</span></h3>
+            <h3 class="nav-item user-name" style="text-align: center">
+                <b>Hello </b><span>{{userName | name}}</span>
+                    <img 
+                    class="nav-item image-circle" 
+                    src="{{user.photoURL}}"
+                    >
+            </h3>
  
     </header>
 
