@@ -43,3 +43,6 @@ h1{
 .img{
     margin: auto ;  
 }
+.dropdown-toggle{
+    width: 10vw;
+}
